@@ -10,48 +10,6 @@
 radius = 28.0
 height = 130.0
 
-[sub_resource type="Animation" id="Animation_m7jmp"]
-resource_name = "run"
-length = 0.416675
-loop_mode = 1
-step = 0.0833333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerBody/Sprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_u3cyc")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerBody/Sprite:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerBody/Sprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-
 [sub_resource type="Animation" id="Animation_y2354"]
 length = 0.001
 tracks/0/type = "value"
@@ -89,6 +47,48 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("2_u3cyc")]
+}
+
+[sub_resource type="Animation" id="Animation_xlvrw"]
+resource_name = "idle"
+length = 0.416675
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerBody/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_nxogm")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerBody/Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerBody/Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
 }
 
 [sub_resource type="Animation" id="Animation_ni31j"]
@@ -132,8 +132,8 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4]
 }
 
-[sub_resource type="Animation" id="Animation_xlvrw"]
-resource_name = "idle"
+[sub_resource type="Animation" id="Animation_m7jmp"]
+resource_name = "run"
 length = 0.416675
 loop_mode = 1
 step = 0.0833333
@@ -147,7 +147,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_nxogm")]
+"values": [ExtResource("2_u3cyc")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -224,4 +224,26 @@ scale = Vector2(10, 1)
 texture = ExtResource("2_3253y")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="PlatformGroup/PlatformBody"]
+shape = SubResource("RectangleShape2D_m7jmp")
+
+[node name="PlatformBody2" type="StaticBody2D" parent="PlatformGroup"]
+position = Vector2(-92, 386)
+scale = Vector2(0.3, 1)
+
+[node name="Sprite" type="Sprite2D" parent="PlatformGroup/PlatformBody2"]
+scale = Vector2(10, 1)
+texture = ExtResource("2_3253y")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="PlatformGroup/PlatformBody2"]
+shape = SubResource("RectangleShape2D_m7jmp")
+
+[node name="PlatformBody3" type="StaticBody2D" parent="PlatformGroup"]
+position = Vector2(1388, 376)
+scale = Vector2(0.3, 1)
+
+[node name="Sprite" type="Sprite2D" parent="PlatformGroup/PlatformBody3"]
+scale = Vector2(10, 1)
+texture = ExtResource("2_3253y")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="PlatformGroup/PlatformBody3"]
 shape = SubResource("RectangleShape2D_m7jmp")
