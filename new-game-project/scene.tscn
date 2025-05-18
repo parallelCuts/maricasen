@@ -194,6 +194,8 @@ position = Vector2(576, 325)
 [node name="PlayerBody" type="CharacterBody2D" parent="PlayerGroup"]
 script = ExtResource("1_3253y")
 speed = 600
+avg_jump = -600
+max_jump = -150
 gravity = 3500
 
 [node name="Sprite" type="Sprite2D" parent="PlayerGroup/PlayerBody"]

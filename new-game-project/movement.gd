@@ -25,8 +25,9 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		anim.play("jump")
 		velocity.y = avg_jump
-		jump = 0
-	if Input.is_action_pressed("jump") and anim.current_animation == "jump" and jump > max_jump:
-		velocity.y -= 50;
-		jump -= 5;
+		jump = max_jump
+	if Input.is_action_pressed("jump") and anim.current_animation == "jump" and jump < 0:
+		velocity.y += jump;
+		jump += 10;
+		print(jump)
 	move_and_slide()
