@@ -12,7 +12,7 @@ shader = ExtResource("2_y2354")
 shader_parameter/flash_amount = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u3cyc"]
-radius = 28.0
+radius = 46.0
 height = 130.0
 
 [sub_resource type="Animation" id="Animation_y2354"]
