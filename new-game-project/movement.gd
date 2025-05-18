@@ -7,6 +7,27 @@ extends CharacterBody2D
 @export var gravity = 4000
 @onready var anim = $AnimationPlayer
 @onready var sprite = $Sprite
+@onready var mat = sprite.material
+
+var flash_timer := 0.0
+const FLASH_DURATION := 0.5
+var invisible = false
+
+var coyoteTimer := 0.0
+const coyoteTime := 0.15
+
+func _process(delta):
+	if flash_timer > 0.0:
+		flash_timer -= delta
+		mat.set_shader_parameter("flash_amount", flash_timer / FLASH_DURATION)
+		invisible = true
+	else:
+		mat.set_shader_parameter("flash_amount", 0.0)
+		invisible = false
+
+func take_damage():
+	# your damage logic
+	flash_timer = FLASH_DURATION
 
 func _physics_process(delta):
 	# Add gravity every frame
@@ -22,12 +43,17 @@ func _physics_process(delta):
 		anim.play("run")
 	elif is_on_floor():
 		anim.play("idle")
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if !is_on_floor() and coyoteTimer == 0:
+		coyoteTimer = coyoteTime
+	elif !is_on_floor():
+		coyoteTimer -= delta
+	if is_on_floor():
+		coyoteTimer = 0
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyoteTimer > 0):
 		anim.play("jump")
 		velocity.y = avg_jump
 		jump = max_jump
 	if Input.is_action_pressed("jump") and anim.current_animation == "jump" and jump < 0:
 		velocity.y += jump;
 		jump += 10;
-		print(jump)
 	move_and_slide()
