@@ -1,11 +1,12 @@
 extends CharacterBody2D
 
-@export var speed = 600
+@export var speed = 300
 @export var avg_jump = -900
 @export var jump = 0
 @export var max_jump = -100
 @export var gravity = 4000
 @onready var anim = $AnimationPlayer
+@onready var pike_anim = $Pike/AnimationPlayer
 @onready var pike_sprite = $Pike/Sprite2D
 @onready var sprite = $Sprite
 @onready var mat = sprite.material
@@ -16,6 +17,17 @@ var player_position: Vector2 = Vector2.ZERO
 
 var flash_timer := 0.0
 const FLASH_DURATION := 0.5
+
+var leftOrRight = randi_range(0, 1)
+var timer = randf_range(2, 5)
+
+var attackTimer = 1;
+
+var playerInVision = false
+var dealDmg = false
+var dealDmgTimer = 0;
+
+signal damage(damage: int)
 
 func _process(delta):
 	if flash_timer > 0.0:
@@ -31,16 +43,39 @@ func take_damage():
 func _physics_process(delta):
 	velocity.y += gravity * delta
 	
+	if dealDmg == true:
+		if dealDmgTimer == 0:
+			emit_signal("damage", 10)
+			dealDmgTimer = 0.5
+		else:
+			dealDmgTimer -= delta
+	
 	var playerDist = player_position.distance_to(position)
 	var direction = Vector2()
-	if playerDist > 1000:
+	if playerDist > 300 and playerInVision == true:
 		anim.play("run")
-		var leftOrRight = randi_range(0, 1)
-		var timer = randf_range(5, 10)
+		if player_position.x < position.x:
+			if !leftBound.is_colliding():
+				anim.play("idle")
+				velocity.x = 0
+			else:
+				velocity.x = -1 * speed
+			sprite.flip_h = true
+			pike_sprite.flip_h = true
+		else:
+			if !rightBound.is_colliding():
+				anim.play("idle")
+				velocity.x = 0
+			else:
+				velocity.x = speed
+			sprite.flip_h = false
+			pike_sprite.flip_h = false
+	elif playerDist > 300:
+		anim.play("run")
 		if timer > 0:
-			if not rightBound.is_colliding():
+			if !rightBound.is_colliding():
 				leftOrRight = 0
-			elif not leftBound.is_colliding():
+			elif !leftBound.is_colliding():
 				leftOrRight = 1
 			if leftOrRight == 0:
 				sprite.flip_h = true
@@ -51,35 +86,40 @@ func _physics_process(delta):
 				pike_sprite.flip_h = false
 				velocity.x = speed
 			timer -= delta
-	elif playerDist > 300:
-		anim.play("run")
-		if player_position.x < position.x:
-			sprite.flip_h = true
-			pike_sprite.flip_h = true
-			velocity.x = -1 * speed
 		else:
-			sprite.flip_h = false
-			pike_sprite.flip_h = false
-			velocity.x = speed
-		if !rightBound.is_colliding():
-			sprite.flip_h = true
-			pike_sprite.flip_h = true
-			velocity.x = -1 * speed
-		elif !leftBound.is_colliding():
-			sprite.flip_h = false
-			pike_sprite.flip_h = false
-			velocity.x = speed
+			leftOrRight = randi_range(0, 1)
+			timer = randf_range(2, 5)
 	else:
-		if player_position.x < position.x:
-			sprite.flip_h = true
-			pike_sprite.flip_h = true
-			anim.play("attack_left")
+		if attackTimer > 0:
+			attackTimer -= delta
 		else:
-			sprite.flip_h = false
-			pike_sprite.flip_h = false
-			anim.play("attack_righdt")
+			velocity.x = 0
+			if player_position.x < position.x:
+				sprite.flip_h = true
+				pike_sprite.flip_h = true
+				pike_anim.play("attack_left")
+			else:
+				sprite.flip_h = false
+				pike_sprite.flip_h = false
+				pike_anim.play("attack_right")
+			attackTimer = 1
 	move_and_slide()
 
 
 func _on_player_body_position_updated(new_position: Vector2) -> void:
 	player_position = new_position
+
+
+func _on_vision_body_entered(body: Node2D) -> void:
+	playerInVision = true
+
+func _on_vision_body_exited(body: Node2D) -> void:
+	playerInVision = false
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	dealDmg = true
+
+func _on_hitbox_body_exited(body: Node2D) -> void:
+	dealDmgTimer = 0
+	dealDmg = false
