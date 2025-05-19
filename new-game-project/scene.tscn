@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://b8advsw5hs4lt"]
+[gd_scene load_steps=26 format=4 uid="uid://b8advsw5hs4lt"]
 
 [ext_resource type="Script" uid="uid://drfkp1ai58dc5" path="res://movement.gd" id="1_3253y"]
 [ext_resource type="Texture2D" uid="uid://cob0017qdtpxm" path="res://Low_Animations/low_idle.png" id="1_nxogm"]
@@ -6,6 +6,9 @@
 [ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_y2354"]
 [ext_resource type="Texture2D" uid="uid://70bxxyd2qi0o" path="res://Low_Animations/low_jump.png" id="3_m7jmp"]
 [ext_resource type="Texture2D" uid="uid://ctr4c2fhdomse" path="res://Low_Animations/tileset.png" id="5_m7jmp"]
+[ext_resource type="Texture2D" uid="uid://td8l5qnpkm2j" path="res://Low_Animations/stickler_run.png" id="7_ni31j"]
+[ext_resource type="Script" uid="uid://03gwt3q2n3to" path="res://enemyStateMachine.gd" id="7_xlvrw"]
+[ext_resource type="Texture2D" uid="uid://djy5fd4etib2x" path="res://Low_Animations/stickler_weapon.png" id="9_73fnb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ni31j"]
 shader = ExtResource("2_y2354")
@@ -353,6 +356,246 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_y2354")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xlvrw"]
+shader = ExtResource("2_y2354")
+shader_parameter/flash_amount = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xlvrw"]
+radius = 4.2
+height = 16.2
+
+[sub_resource type="Animation" id="Animation_73fnb"]
+resource_name = "run"
+length = 0.416675
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_ni31j")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pike:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -10)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pike:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5juve"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_ni31j")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pike:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -10)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pike:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pike/Sprite2D:flip_h")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_fy5k1"]
+resource_name = "attack"
+length = 0.500008
+loop_mode = 2
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pike:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.17528, 0.329526, 0.410154),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -10), Vector2(4.6, 1.4), Vector2(15, 1.4), Vector2(12, 1.4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pike:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.17528),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.5708]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pike/Sprite2D:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5c1cw"]
+resource_name = "attack_left"
+length = 0.500008
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pike/Sprite2D:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pike:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.17528, 0.329526, 0.410154),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -10), Vector2(0, 0), Vector2(-4.6, 1.4), Vector2(-15, 1.4), Vector2(-12, 1.4)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pike:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.17528),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -1.5708]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fy5k1"]
+_data = {
+&"RESET": SubResource("Animation_5juve"),
+&"attack_left": SubResource("Animation_5c1cw"),
+&"attack_right": SubResource("Animation_fy5k1"),
+&"run": SubResource("Animation_73fnb")
+}
+
 [node name="Node2D" type="Node2D"]
 
 [node name="PlayerGroup" type="Node2D" parent="."]
@@ -393,3 +636,40 @@ position = Vector2(-1, 0)
 scale = Vector2(10, 10)
 tile_map_data = PackedByteArray("AAADAAMAAAABAAAAAAACAAMAAAABAAAAAAAEAAMAAAABAAAAAAAFAAMAAAABAAAAAAABAAMAAAABAAAAAAAGAAMAAAABAAAAAAAAAAMAAAAAAAAAAAAHAAMAAAACAAAAAAABAAQAAAABAAEAAAACAAQAAAABAAEAAAADAAQAAAABAAEAAAAEAAQAAAABAAEAAAAFAAQAAAABAAEAAAAGAAQAAAABAAEAAAABAAUAAAABAAEAAAACAAUAAAABAAEAAAADAAUAAAABAAEAAAAEAAUAAAABAAEAAAAFAAUAAAABAAEAAAAGAAUAAAABAAEAAAAHAAQAAAACAAEAAAAHAAUAAAACAAEAAAAAAAQAAAAAAAEAAAAAAAUAAAAAAAEAAAAAAAYAAAAAAAIAAAABAAYAAAABAAIAAAACAAYAAAABAAIAAAADAAYAAAABAAIAAAAEAAYAAAABAAIAAAAFAAYAAAABAAIAAAAGAAYAAAABAAIAAAAHAAYAAAACAAIAAAAKAAMAAAABAAAAAAALAAMAAAABAAAAAAAMAAMAAAABAAAAAAAJAAMAAAAAAAAAAAANAAMAAAACAAAAAAAKAAQAAAABAAEAAAAJAAQAAAAAAAEAAAAJAAUAAAAAAAEAAAAJAAYAAAAAAAIAAAAKAAYAAAABAAIAAAALAAYAAAABAAIAAAAMAAYAAAABAAIAAAANAAYAAAACAAIAAAANAAQAAAACAAEAAAANAAUAAAACAAEAAAAKAAUAAAABAAEAAAALAAUAAAABAAEAAAALAAQAAAABAAEAAAAMAAQAAAABAAEAAAAMAAUAAAABAAEAAAAPAAEAAAAAAAAAAAAQAAEAAAABAAAAAAARAAEAAAACAAAAAAARAAIAAAACAAEAAAARAAMAAAACAAEAAAAQAAMAAAABAAEAAAAQAAQAAAABAAEAAAAQAAUAAAABAAEAAAARAAUAAAACAAEAAAARAAQAAAACAAEAAAARAAkAAAACAAIAAAARAAgAAAACAAEAAAARAAcAAAACAAEAAAARAAYAAAACAAEAAAAQAAIAAAABAAEAAAAQAAYAAAABAAEAAAAQAAcAAAABAAEAAAAQAAgAAAABAAEAAAAQAAkAAAABAAIAAAAPAAkAAAAAAAIAAAAPAAgAAAAAAAEAAAAPAAcAAAAAAAEAAAAPAAYAAAAAAAEAAAAPAAUAAAAAAAEAAAAPAAQAAAAAAAEAAAAPAAMAAAAAAAEAAAAPAAIAAAAAAAEAAAABAAkAAAABAAAAAAACAAkAAAABAAAAAAADAAkAAAABAAAAAAAEAAkAAAABAAAAAAAFAAkAAAABAAAAAAAGAAkAAAABAAAAAAAHAAkAAAABAAAAAAAIAAkAAAABAAAAAAAJAAkAAAABAAAAAAAKAAkAAAABAAAAAAALAAkAAAABAAAAAAAMAAkAAAACAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAAFAAEAAAABAAoAAAADAAAAAAACAAoAAAABAAIAAAADAAoAAAABAAIAAAAEAAoAAAABAAIAAAAFAAoAAAABAAIAAAAGAAoAAAABAAIAAAAHAAoAAAABAAIAAAAIAAoAAAABAAIAAAAJAAoAAAABAAIAAAAKAAoAAAABAAIAAAALAAoAAAABAAIAAAAMAAoAAAACAAIAAAD+/wkAAAACAAIAAAD9/wkAAAAAAAIAAAD9/wgAAAAAAAAAAAD+/wgAAAACAAAAAAD7/wcAAAACAAAAAAD6/wcAAAAAAAAAAAD6/wgAAAAAAAIAAAD7/wgAAAACAAIAAAD+/wUAAAAAAAAAAAD//wUAAAACAAAAAAD//wYAAAACAAIAAAD+/wYAAAAAAAIAAAAYAAUAAAACAAIAAAAYAAQAAAADAAEAAAAYAAMAAAADAAEAAAAYAAIAAAACAAEAAAAYAAEAAAADAAEAAAAYAAAAAAACAAAAAAAXAAUAAAAEAAAAAAAXAAQAAAABAAEAAAAXAAMAAAABAAEAAAAXAAIAAAABAAEAAAAXAAEAAAABAAEAAAAXAAAAAAABAAAAAAAWAAUAAAAEAAAAAAAWAAQAAAABAAEAAAAWAAMAAAABAAEAAAAWAAIAAAABAAEAAAAWAAEAAAABAAEAAAAWAAAAAAAEAAIAAAAVAAUAAAAEAAAAAAAVAAQAAAABAAEAAAAVAAMAAAABAAEAAAAVAAIAAAABAAEAAAAVAAEAAAABAAEAAAAVAAAAAAABAAAAAAAUAAUAAAAAAAIAAAAUAAQAAAAAAAEAAAAUAAMAAAAFAAEAAAAUAAIAAAAAAAEAAAAUAAEAAAAFAAEAAAAUAAAAAAAAAAAAAAAYAAsAAAACAAIAAAAYAAoAAAADAAEAAAAYAAkAAAACAAAAAAAXAAsAAAAEAAAAAAAXAAoAAAABAAEAAAAXAAkAAAAEAAIAAAAWAAsAAAAAAAIAAAAWAAoAAAAAAAEAAAAWAAkAAAAAAAAAAAAUAA4AAAACAAIAAAAUAA0AAAACAAEAAAAUAAwAAAACAAAAAAATAA4AAAABAAIAAAATAA0AAAABAAEAAAATAAwAAAABAAAAAAASAA4AAAAEAAAAAAASAA0AAAABAAEAAAASAAwAAAAEAAIAAAARAA4AAAABAAIAAAARAA0AAAABAAEAAAARAAwAAAABAAAAAAAQAA4AAAAEAAAAAAAQAA0AAAABAAEAAAAQAAwAAAABAAAAAAAPAA4AAAAAAAIAAAAPAA0AAAAFAAEAAAAPAAwAAAAAAAAAAAAMABIAAAACAAIAAAAMABEAAAACAAEAAAAMABAAAAACAAEAAAAMAA8AAAACAAAAAAALABIAAAABAAIAAAALABEAAAABAAEAAAALABAAAAABAAEAAAALAA8AAAABAAAAAAAKABIAAAABAAIAAAAKABEAAAABAAEAAAAKABAAAAABAAEAAAAKAA8AAAABAAAAAAAJABIAAAABAAIAAAAJABEAAAABAAEAAAAJABAAAAABAAEAAAAJAA8AAAABAAAAAAAIABIAAAABAAIAAAAIABEAAAABAAEAAAAIABAAAAABAAEAAAAIAA8AAAABAAAAAAAHABIAAAABAAIAAAAHABEAAAABAAEAAAAHABAAAAABAAEAAAAHAA8AAAAEAAIAAAAGABIAAAABAAIAAAAGABEAAAABAAEAAAAGABAAAAABAAEAAAAGAA8AAAABAAAAAAAFABIAAAABAAIAAAAFABEAAAABAAEAAAAFABAAAAABAAEAAAAFAA8AAAABAAAAAAAEABIAAAAEAAAAAAAEABEAAAABAAEAAAAEABAAAAABAAEAAAAEAA8AAAABAAAAAAADABIAAAAAAAIAAAADABEAAAAFAAEAAAADABAAAAAAAAEAAAADAA8AAAAAAAAAAAD+/w8AAAACAAIAAAD+/w4AAAACAAEAAAD+/w0AAAADAAAAAAD9/w8AAAAEAAAAAAD9/w4AAAABAAEAAAD9/w0AAAAFAAIAAAD8/w8AAAAEAAAAAAD8/w4AAAABAAEAAAD8/w0AAAABAAAAAAD7/w8AAAAAAAIAAAD7/w4AAAAAAAEAAAD7/w0AAAAAAAAAAAD5/w4AAAACAAIAAAD5/w0AAAACAAEAAAD5/wwAAAACAAEAAAD5/wsAAAACAAAAAAD4/w4AAAABAAIAAAD4/w0AAAABAAEAAAD4/wwAAAABAAEAAAD4/wsAAAAEAAIAAAD3/w4AAAAAAAIAAAD3/w0AAAAFAAAAAAD3/wwAAAAFAAIAAAD3/wsAAAAAAAAAAAD0/wkAAAACAAIAAAD0/wgAAAADAAEAAAD0/wcAAAADAAEAAAD0/wYAAAACAAAAAADz/wkAAAAAAAIAAADz/wgAAAAAAAEAAADz/wcAAAAFAAEAAADz/wYAAAAAAAAAAAD3/wQAAAACAAIAAAD3/wMAAAACAAAAAAD2/wQAAAAAAAIAAAD2/wMAAAAAAAAAAAD7/wQAAAACAAIAAAD7/wMAAAACAAAAAAD6/wQAAAAEAAAAAAD6/wMAAAABAAAAAAD5/wQAAAAAAAIAAAD5/wMAAAAAAAAAAAAaABYAAAACAAIAAAAaABUAAAACAAAAAAAZABYAAAAEAAAAAAAZABUAAAABAAAAAAAYABYAAAAEAAAAAAAYABUAAAABAAAAAAAXABYAAAABAAIAAAAXABUAAAAEAAIAAAAWABYAAAABAAIAAAAWABUAAAAEAAIAAAAVABYAAAAEAAAAAAAVABUAAAAEAAIAAAAUABYAAAABAAIAAAAUABUAAAAEAAIAAAATABYAAAABAAIAAAATABUAAAAEAAIAAAASABYAAAABAAIAAAASABUAAAAEAAIAAAARABYAAAABAAIAAAARABUAAAAEAAIAAAAQABYAAAAEAAAAAAAQABUAAAAEAAIAAAAPABYAAAABAAIAAAAPABUAAAAEAAIAAAAOABYAAAABAAIAAAAOABUAAAABAAAAAAANABYAAAAEAAAAAAANABUAAAABAAAAAAAMABYAAAABAAIAAAAMABUAAAABAAAAAAALABYAAAAEAAAAAAALABUAAAABAAAAAAAKABYAAAABAAIAAAAKABUAAAAEAAIAAAAJABYAAAAEAAAAAAAJABUAAAAEAAIAAAAIABYAAAAEAAAAAAAIABUAAAAEAAIAAAAHABYAAAAEAAAAAAAHABUAAAAEAAIAAAAGABYAAAAEAAAAAAAGABUAAAABAAAAAAAFABYAAAABAAIAAAAFABUAAAAEAAIAAAAEABYAAAAEAAAAAAAEABUAAAAEAAIAAAADABYAAAABAAIAAAADABUAAAABAAAAAAACABYAAAABAAIAAAACABUAAAABAAAAAAABABYAAAABAAIAAAABABUAAAABAAAAAAAAABYAAAABAAIAAAAAABUAAAABAAAAAAD//xYAAAAEAAAAAAD//xUAAAABAAAAAAD+/xYAAAABAAIAAAD+/xUAAAABAAAAAAD9/xYAAAAEAAAAAAD9/xUAAAABAAAAAAD8/xYAAAABAAIAAAD8/xUAAAABAAAAAAD7/xYAAAABAAIAAAD7/xUAAAAEAAIAAAD6/xYAAAABAAIAAAD6/xUAAAAEAAIAAAD5/xYAAAAEAAAAAAD5/xUAAAAEAAIAAAD4/xYAAAAEAAAAAAD4/xUAAAABAAAAAAD3/xYAAAAEAAAAAAD3/xUAAAAEAAIAAAD2/xYAAAABAAIAAAD2/xUAAAADAAIAAAD1/xYAAAABAAIAAAD1/xUAAAABAAEAAADz/xQAAAABAAIAAADz/xMAAAABAAEAAADz/xIAAAAEAAIAAADy/xQAAAAAAAIAAADy/xMAAAAAAAEAAADy/xIAAAAAAAAAAADw/xEAAAACAAIAAADw/xAAAAACAAAAAADv/xEAAAAAAAIAAADv/xAAAAAAAAAAAADu/w4AAAACAAIAAADu/w0AAAADAAEAAADu/wwAAAACAAAAAADt/w4AAAAAAAIAAADt/w0AAAAFAAEAAADt/wwAAAAAAAAAAADs/wsAAAACAAIAAADs/woAAAACAAAAAADr/wsAAAAAAAIAAADr/woAAAAAAAAAAADx/woAAAACAAIAAADx/wkAAAADAAEAAADx/wgAAAACAAAAAADw/woAAAAAAAIAAADw/wkAAAAFAAEAAADw/wgAAAAAAAAAAAD0/xMAAAADAAEAAAD0/xIAAAACAAAAAAD1/xQAAAADAAIAAAD1/xMAAAACAAAAAAD0/xQAAAAFAAAAAAD0/xUAAAAAAAEAAAD2/xQAAAACAAAAAAD0/xYAAAAAAAIAAADz/w8AAAACAAIAAADz/w4AAAACAAAAAADy/w8AAAAAAAIAAADy/w4AAAAAAAAAAAD2/w0AAAAEAAAAAAD2/wwAAAAEAAIAAAD1/w0AAAAAAAIAAAD1/wwAAAAAAAAAAAD//w0AAAACAAIAAAD//wwAAAADAAAAAAD+/wwAAAAEAAIAAAD9/wwAAAAAAAAAAAAAAAwAAAACAAIAAAAAAAsAAAADAAAAAAD//wsAAAAAAAAAAAABAAsAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_ni31j")
+
+[node name="EnemyGroup" type="Node2D" parent="."]
+
+[node name="Stickler" type="CharacterBody2D" parent="EnemyGroup"]
+position = Vector2(207, 366)
+scale = Vector2(10, 10)
+script = ExtResource("7_xlvrw")
+
+[node name="Sprite" type="Sprite2D" parent="EnemyGroup/Stickler"]
+material = SubResource("ShaderMaterial_xlvrw")
+texture = ExtResource("7_ni31j")
+hframes = 5
+
+[node name="CollisionBox" type="CollisionShape2D" parent="EnemyGroup/Stickler"]
+shape = SubResource("CapsuleShape2D_xlvrw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnemyGroup/Stickler"]
+libraries = {
+&"": SubResource("AnimationLibrary_fy5k1")
+}
+
+[node name="Pike" type="Node2D" parent="EnemyGroup/Stickler"]
+position = Vector2(0, -10)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemyGroup/Stickler/Pike"]
+texture = ExtResource("9_73fnb")
+
+[node name="RightBound" type="RayCast2D" parent="EnemyGroup/Stickler"]
+position = Vector2(5, 0)
+scale = Vector2(1, 1)
+target_position = Vector2(0, 12)
+
+[node name="LeftBound" type="RayCast2D" parent="EnemyGroup/Stickler"]
+position = Vector2(-5, 0)
+target_position = Vector2(0, 12)
+
+[connection signal="position_updated" from="PlayerGroup/PlayerBody" to="EnemyGroup/Stickler" method="_on_player_body_position_updated"]

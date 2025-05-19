@@ -16,6 +16,11 @@ var invisible = false
 var coyoteTimer := 0.0
 const coyoteTime := 0.15
 
+var jump_count = 0
+const maxJumps = 2
+
+signal position_updated(new_position: Vector2)
+
 func _process(delta):
 	if flash_timer > 0.0:
 		flash_timer -= delta
@@ -31,6 +36,7 @@ func take_damage():
 
 func _physics_process(delta):
 	# Add gravity every frame
+	emit_signal("position_updated", global_position)
 	velocity.y += gravity * delta
 	# Input affects x axis only
 	velocity.x = Input.get_axis("left", "right") * speed
@@ -38,7 +44,8 @@ func _physics_process(delta):
 		sprite.flip_h = true
 	elif velocity.x > 0:
 		sprite.flip_h = false
-		
+	if Input.is_action_just_pressed("attack"):
+		take_damage()
 	if velocity.x != 0 and is_on_floor():
 		anim.play("run")
 	elif is_on_floor():
@@ -49,11 +56,13 @@ func _physics_process(delta):
 		coyoteTimer -= delta
 	if is_on_floor():
 		coyoteTimer = 0
-	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyoteTimer > 0):
+		jump_count = 0
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyoteTimer > 0 or jump_count < maxJumps):
 		anim.play("jump")
 		velocity.y = avg_jump
+		jump_count += 1
 		jump = max_jump
-	if Input.is_action_pressed("jump") and anim.current_animation == "jump" and jump < 0:
+	if Input.is_action_pressed("jump") and jump < 0:
 		velocity.y += jump;
 		jump += 10;
 	move_and_slide()
