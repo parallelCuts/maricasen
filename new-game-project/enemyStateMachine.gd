@@ -21,11 +21,13 @@ const FLASH_DURATION := 0.5
 var leftOrRight = randi_range(0, 1)
 var timer = randf_range(2, 5)
 
-var attackTimer = 1;
+var attackTimer = 0;
 
 var playerInVision = false
 var dealDmg = false
 var dealDmgTimer = 0;
+
+var health = 30
 
 signal damage(damage: int)
 
@@ -36,12 +38,16 @@ func _process(delta):
 	else:
 		mat.set_shader_parameter("flash_amount", 0.0)
 
-func take_damage():
+func take_damage(damage):
 	# your damage logic
 	flash_timer = FLASH_DURATION
+	health -= damage
 
 func _physics_process(delta):
 	velocity.y += gravity * delta
+	
+	if health <= 0:
+		queue_free()
 	
 	if dealDmg == true:
 		if dealDmgTimer == 0:
@@ -55,6 +61,8 @@ func _physics_process(delta):
 	if playerDist > 300 and playerInVision == true:
 		anim.play("run")
 		if player_position.x < position.x:
+			print(player_position.x)
+			print(position.x)
 			if !leftBound.is_colliding():
 				anim.play("idle")
 				velocity.x = 0
@@ -71,6 +79,7 @@ func _physics_process(delta):
 			sprite.flip_h = false
 			pike_sprite.flip_h = false
 	elif playerDist > 300:
+		print("wandering")	
 		anim.play("run")
 		if timer > 0:
 			if !rightBound.is_colliding():
@@ -102,7 +111,7 @@ func _physics_process(delta):
 				sprite.flip_h = false
 				pike_sprite.flip_h = false
 				pike_anim.play("attack_right")
-			attackTimer = 1
+			attackTimer = 2
 	move_and_slide()
 
 
@@ -123,3 +132,6 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 func _on_hitbox_body_exited(body: Node2D) -> void:
 	dealDmgTimer = 0
 	dealDmg = false
+	
+func _on_player_body_damage(damage: int) -> void:
+	take_damage(damage)

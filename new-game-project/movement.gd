@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var anim = $AnimationPlayer
 @onready var sprite = $Sprite
 @onready var mat = sprite.material
+@onready var attack_anim = $Attack/AnimationPlayer
 
 var flash_timer := 0.0
 const FLASH_DURATION := 0.5
@@ -20,8 +21,13 @@ var jump_count = 0
 const maxJumps = 2
 
 signal position_updated(new_position: Vector2)
+signal damage(damage: int)
 
 @export var health = 50
+
+@export var attackTimer = 0
+
+var dealDmg = false
 
 func _process(delta):
 	if flash_timer > 0.0:
@@ -61,7 +67,16 @@ func _physics_process(delta):
 	if is_on_floor():
 		coyoteTimer = 0
 		jump_count = 0
-	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyoteTimer > 0):
+	
+	if Input.is_action_just_pressed("attack"):
+		if sprite.flip_h == true:
+			attack_anim.play("attack_left")
+		elif sprite.flip_h == false:
+			attack_anim.play("attack_right")
+		if dealDmg == true:
+			emit_signal("damage", 10)
+	
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall() or coyoteTimer > 0):
 		anim.play("jump")
 		velocity.y = avg_jump
 		jump_count += 1
@@ -79,3 +94,10 @@ func _physics_process(delta):
 
 func _on_stickler_damage(damage: int) -> void:
 	take_damage(damage)
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	dealDmg = true
+
+func _on_hitbox_body_exited(body: Node2D) -> void:
+	dealDmg = false
