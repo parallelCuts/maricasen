@@ -133,5 +133,5 @@ func _on_hitbox_body_exited(body: Node2D) -> void:
 	dealDmgTimer = 0
 	dealDmg = false
 	
-func _on_player_body_damage(damage: int) -> void:
-	take_damage(damage)
+func _on_player_body_damage(dmg: int) -> void:
+	take_damage(dmg)

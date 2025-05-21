@@ -26,6 +26,12 @@ signal damage(damage: int)
 @export var health = 50
 
 @export var attackTimer = 0
+@export var attackKnockback = 0
+var attackKnockbackTimer = 3
+var attackKnockbackDirection = 1
+
+var wallJumpTimer = 0
+var wallJumpForce = 0
 
 var dealDmg = false
 
@@ -71,16 +77,34 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("attack"):
 		if sprite.flip_h == true:
 			attack_anim.play("attack_left")
+			if dealDmg == true:
+				emit_signal("damage", 10)
+				attackKnockbackDirection = 1
+				attackKnockback = 500
+				attackKnockbackTimer = 0.2
 		elif sprite.flip_h == false:
 			attack_anim.play("attack_right")
-		if dealDmg == true:
-			emit_signal("damage", 10)
+			if dealDmg == true:
+				emit_signal("damage", 10)
+				attackKnockbackDirection = -1
+				attackKnockback = 500
+				attackKnockbackTimer = 0.2
+	if attackKnockbackTimer > 0 and attackKnockback > 0:
+		velocity.x += attackKnockback * attackKnockbackDirection
+		attackKnockback -= 5
+		attackKnockbackTimer -= delta
 	
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall() or coyoteTimer > 0):
 		anim.play("jump")
 		velocity.y = avg_jump
 		jump_count += 1
 		jump = max_jump
+		if is_on_wall() and Input.is_action_pressed("left"):
+			wallJumpTimer = 0.2
+			wallJumpForce = 1000
+		elif is_on_wall() and Input.is_action_pressed("right"):
+			wallJumpTimer = 2
+			wallJumpForce = -1000
 	elif Input.is_action_just_pressed("jump") and jump_count < maxJumps:
 		anim.play("jump")
 		velocity.y = avg_jump
@@ -89,11 +113,18 @@ func _physics_process(delta):
 	if Input.is_action_pressed("jump") and jump < 0:
 		velocity.y += jump;
 		jump += 10;
+	if wallJumpForce != 0 and wallJumpTimer > 0:
+		wallJumpTimer -= delta
+		velocity.x += wallJumpForce
+		if wallJumpForce > 0:
+			wallJumpForce -= 10
+		else:
+			wallJumpForce += 10
 	move_and_slide()
 
 
-func _on_stickler_damage(damage: int) -> void:
-	take_damage(damage)
+func _on_stickler_damage(dmg: int) -> void:
+	take_damage(dmg)
 
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
