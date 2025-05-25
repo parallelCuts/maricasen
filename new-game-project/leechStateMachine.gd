@@ -58,7 +58,6 @@ func _physics_process(delta):
 			hitboxes[h].global_position = body_parts[h - 1].global_position
 	
 	if playerDist > 700:
-		print(randPosition)
 		if timer > 0:
 			movement(randPosition + head.global_position)
 			timer -= delta

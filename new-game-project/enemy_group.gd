@@ -9,6 +9,9 @@ func _ready():
 	var b = preload("res://leech.tscn").instantiate()
 	b.position = Vector2(500, 0)
 	enemyList.append(b)
+	var c = preload("res://leech.tscn").instantiate()
+	c.position = Vector2(500, 0)
+	enemyList.append(c)
 	for enemy in enemyList:
 		player.position_updated.connect(enemy._on_player_body_position_updated)
 		add_child(enemy)
