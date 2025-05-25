@@ -35,6 +35,9 @@ var wallJumpForce = 0
 
 var dealDmg = false
 
+var takeDmg = false;
+var takeDmgTimer = 0
+
 func _process(delta):
 	if flash_timer > 0.0:
 		flash_timer -= delta
@@ -97,13 +100,13 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall() or coyoteTimer > 0):
 		anim.play("jump")
 		velocity.y = avg_jump
-		jump_count += 1
+		jump_count = 1
 		jump = max_jump
 		if is_on_wall() and Input.is_action_pressed("left"):
 			wallJumpTimer = 0.2
 			wallJumpForce = 1000
 		elif is_on_wall() and Input.is_action_pressed("right"):
-			wallJumpTimer = 2
+			wallJumpTimer = 0.2
 			wallJumpForce = -1000
 	elif Input.is_action_just_pressed("jump") and jump_count < maxJumps:
 		anim.play("jump")
@@ -120,15 +123,19 @@ func _physics_process(delta):
 			wallJumpForce -= 10
 		else:
 			wallJumpForce += 10
+	
+	if takeDmg == true:
+		if takeDmgTimer < 0:
+			takeDmgTimer = 0.5
+			take_damage(10)
+		else:
+			takeDmgTimer -= delta
 	move_and_slide()
 
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	takeDmgTimer = 0
+	takeDmg = true
 
-func _on_stickler_damage(dmg: int) -> void:
-	take_damage(dmg)
 
-
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	dealDmg = true
-
-func _on_hitbox_body_exited(body: Node2D) -> void:
-	dealDmg = false
+func _on_hurtbox_area_exited(area: Area2D) -> void:
+	takeDmg = false

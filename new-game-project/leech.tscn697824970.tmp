@@ -1,0 +1,273 @@
+[gd_scene load_steps=21 format=3 uid="uid://bh02me1t2hj1y"]
+
+[ext_resource type="Script" uid="uid://dwvpcpd3lwes1" path="res://leechStateMachine.gd" id="1_eekcm"]
+[ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_45fi6"]
+[ext_resource type="Texture2D" uid="uid://cs1rrfky4ihpn" path="res://Low_Animations/leech.png" id="2_qydjk"]
+[ext_resource type="Texture2D" uid="uid://de55pxvbci7vc" path="res://Low_Animations/tongue.png" id="4_45fi6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w6ipx"]
+shader = ExtResource("2_45fi6")
+shader_parameter/flash_amount = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qydjk"]
+radius = 7.40608
+
+[sub_resource type="Animation" id="Animation_tl51a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [128]
+}
+
+[sub_resource type="Animation" id="Animation_w6ipx"]
+resource_name = "lick"
+length = 0.666675
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0860501, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0860501, 0.586071, 0.666675),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [128, 16, 16, 128]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lobco"]
+_data = {
+&"RESET": SubResource("Animation_tl51a"),
+&"lick": SubResource("Animation_w6ipx")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_45fi6"]
+radius = 4.8
+height = 17.4
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vua8j"]
+radius = 7.41
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jmx8o"]
+radius = 5.93
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wuwe6"]
+radius = 4.45
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xas5e"]
+radius = 2.96
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s4q1f"]
+radius = 1.48
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_45fi6"]
+radius = 7.41
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w6ipx"]
+radius = 5.93
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tl51a"]
+radius = 4.45
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lobco"]
+radius = 2.96
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jybbp"]
+radius = 1.48
+
+[node name="Leech" type="CharacterBody2D"]
+scale = Vector2(10, 10)
+script = ExtResource("1_eekcm")
+
+[node name="Head" type="CharacterBody2D" parent="."]
+collision_layer = 4
+
+[node name="Sprite" type="Sprite2D" parent="Head"]
+material = SubResource("ShaderMaterial_w6ipx")
+texture = ExtResource("2_qydjk")
+flip_h = true
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
+shape = SubResource("CircleShape2D_qydjk")
+
+[node name="Link" type="Node2D" parent="Head"]
+position = Vector2(-8.8, 0.1)
+
+[node name="Tongue" type="Node2D" parent="Head"]
+position = Vector2(10, 0)
+
+[node name="Sprite" type="Sprite2D" parent="Head/Tongue"]
+texture = ExtResource("4_45fi6")
+flip_h = true
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Tongue"]
+libraries = {
+&"": SubResource("AnimationLibrary_lobco")
+}
+
+[node name="Hitbox" type="Area2D" parent="Head/Tongue"]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/Tongue/Hitbox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_45fi6")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Head/Tongue/Hitbox"]
+position = Vector2(-10, 0)
+shape = SubResource("CircleShape2D_vua8j")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Head/Tongue/Hitbox"]
+position = Vector2(3.1, 0)
+shape = SubResource("CircleShape2D_jmx8o")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Head/Tongue/Hitbox"]
+position = Vector2(14.5, 0)
+shape = SubResource("CircleShape2D_wuwe6")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Head/Tongue/Hitbox"]
+position = Vector2(21.7, 0)
+shape = SubResource("CircleShape2D_xas5e")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Head/Tongue/Hitbox"]
+position = Vector2(26.2, 0)
+shape = SubResource("CircleShape2D_s4q1f")
+
+[node name="Body1" type="CharacterBody2D" parent="."]
+position = Vector2(13.1, 0)
+scale = Vector2(0.8, 0.8)
+collision_layer = 4
+
+[node name="Sprite" type="Sprite2D" parent="Body1"]
+z_index = -1
+material = SubResource("ShaderMaterial_w6ipx")
+texture = ExtResource("2_qydjk")
+flip_h = true
+vframes = 2
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body1"]
+shape = SubResource("CircleShape2D_qydjk")
+
+[node name="Link" type="Node2D" parent="Body1"]
+position = Vector2(-8.8, 0.1)
+
+[node name="Body2" type="CharacterBody2D" parent="."]
+position = Vector2(24.4, 0)
+scale = Vector2(0.6, 0.6)
+collision_layer = 4
+
+[node name="Sprite" type="Sprite2D" parent="Body2"]
+z_index = -1
+material = SubResource("ShaderMaterial_w6ipx")
+texture = ExtResource("2_qydjk")
+flip_h = true
+vframes = 2
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body2"]
+shape = SubResource("CircleShape2D_qydjk")
+
+[node name="Link" type="Node2D" parent="Body2"]
+position = Vector2(-8.8, 0.1)
+
+[node name="Body3" type="CharacterBody2D" parent="."]
+position = Vector2(31.5, 0)
+scale = Vector2(0.4, 0.4)
+collision_layer = 4
+
+[node name="Sprite" type="Sprite2D" parent="Body3"]
+z_index = -1
+material = SubResource("ShaderMaterial_w6ipx")
+texture = ExtResource("2_qydjk")
+flip_h = true
+vframes = 2
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body3"]
+shape = SubResource("CircleShape2D_qydjk")
+
+[node name="Link" type="Node2D" parent="Body3"]
+position = Vector2(-7.5, 0.1)
+
+[node name="Link2" type="Node2D" parent="Body3"]
+position = Vector2(-8.8, 0.1)
+
+[node name="Body4" type="CharacterBody2D" parent="."]
+position = Vector2(36.2, 0)
+scale = Vector2(0.2, 0.2)
+collision_layer = 4
+
+[node name="Sprite" type="Sprite2D" parent="Body4"]
+z_index = -1
+material = SubResource("ShaderMaterial_w6ipx")
+texture = ExtResource("2_qydjk")
+flip_h = true
+vframes = 2
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body4"]
+shape = SubResource("CircleShape2D_qydjk")
+
+[node name="Link" type="Node2D" parent="Body4"]
+position = Vector2(-8.8, 0.1)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_45fi6")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(13.1, 0)
+shape = SubResource("CircleShape2D_w6ipx")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(24.5, 0)
+shape = SubResource("CircleShape2D_tl51a")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(31.6, 0)
+shape = SubResource("CircleShape2D_lobco")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(36.2, 0)
+shape = SubResource("CircleShape2D_jybbp")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

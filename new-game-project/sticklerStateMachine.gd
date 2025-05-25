@@ -24,12 +24,14 @@ var timer = randf_range(2, 5)
 var attackTimer = 0;
 
 var playerInVision = false
-var dealDmg = false
-var dealDmgTimer = 0;
 
-var health = 30
+@export var health = 30
 
 signal damage(damage: int)
+
+func _ready() -> void:
+	sprite.material = sprite.material.duplicate()
+	mat = sprite.material
 
 func _process(delta):
 	if flash_timer > 0.0:
@@ -49,20 +51,11 @@ func _physics_process(delta):
 	if health <= 0:
 		queue_free()
 	
-	if dealDmg == true:
-		if dealDmgTimer == 0:
-			emit_signal("damage", 10)
-			dealDmgTimer = 0.5
-		else:
-			dealDmgTimer -= delta
-	
-	var playerDist = player_position.distance_to(position)
+	var playerDist = player_position.distance_to(global_position)
 	var direction = Vector2()
 	if playerDist > 300 and playerInVision == true:
 		anim.play("run")
-		if player_position.x < position.x:
-			print(player_position.x)
-			print(position.x)
+		if player_position.x < global_position.x:
 			if !leftBound.is_colliding():
 				anim.play("idle")
 				velocity.x = 0
@@ -79,7 +72,6 @@ func _physics_process(delta):
 			sprite.flip_h = false
 			pike_sprite.flip_h = false
 	elif playerDist > 300:
-		print("wandering")	
 		anim.play("run")
 		if timer > 0:
 			if !rightBound.is_colliding():
@@ -103,7 +95,7 @@ func _physics_process(delta):
 			attackTimer -= delta
 		else:
 			velocity.x = 0
-			if player_position.x < position.x:
+			if player_position.x < global_position.x:
 				sprite.flip_h = true
 				pike_sprite.flip_h = true
 				pike_anim.play("attack_left")
@@ -111,7 +103,7 @@ func _physics_process(delta):
 				sprite.flip_h = false
 				pike_sprite.flip_h = false
 				pike_anim.play("attack_right")
-			attackTimer = 2
+			attackTimer = 1
 	move_and_slide()
 
 
@@ -125,13 +117,5 @@ func _on_vision_body_entered(body: Node2D) -> void:
 func _on_vision_body_exited(body: Node2D) -> void:
 	playerInVision = false
 
-
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	dealDmg = true
-
-func _on_hitbox_body_exited(body: Node2D) -> void:
-	dealDmgTimer = 0
-	dealDmg = false
-	
-func _on_player_body_damage(dmg: int) -> void:
-	take_damage(dmg)
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	take_damage(10)
