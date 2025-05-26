@@ -23,6 +23,11 @@ var attackTimer = 0;
 @onready var tongue = $Head/Tongue
 @onready var tongue_anim = $Head/Tongue/AnimationPlayer
 
+func _ready() -> void:
+	head.get_node("Sprite").material = head.get_node("Sprite").material.duplicate()
+	for part in body_parts:
+		part.get_node("Sprite").material = head.get_node("Sprite").material.duplicate()
+
 func _process(delta):
 	var mat = head.get_node("Sprite").material
 	if flash_timer > 0.0:
