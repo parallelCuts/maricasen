@@ -1,12 +1,12 @@
 [gd_scene load_steps=19 format=3 uid="uid://c2i4o5jscvebg"]
 
-[ext_resource type="Script" uid="uid://03gwt3q2n3to" path="res://sticklerStateMachine.gd" id="1_fkp5k"]
-[ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_5o6sq"]
-[ext_resource type="Texture2D" uid="uid://td8l5qnpkm2j" path="res://Low_Animations/stickler_run.png" id="3_71ymf"]
-[ext_resource type="Texture2D" uid="uid://djy5fd4etib2x" path="res://Low_Animations/stickler_weapon.png" id="4_yoeo7"]
+[ext_resource type="Script" uid="uid://03gwt3q2n3to" path="res://sticklerStateMachine.gd" id="1_e3e5t"]
+[ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_8yrx1"]
+[ext_resource type="Texture2D" uid="uid://td8l5qnpkm2j" path="res://Low_Animations/stickler_run.png" id="3_n6mrh"]
+[ext_resource type="Texture2D" uid="uid://djy5fd4etib2x" path="res://Low_Animations/stickler_weapon.png" id="4_kilit"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xlvrw"]
-shader = ExtResource("2_5o6sq")
+shader = ExtResource("2_8yrx1")
 shader_parameter/flash_amount = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xlvrw"]
@@ -37,7 +37,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_71ymf")]
+"values": [ExtResource("3_n6mrh")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -102,7 +102,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_71ymf")]
+"values": [ExtResource("3_n6mrh")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -180,7 +180,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_71ymf")]
+"values": [ExtResource("3_n6mrh")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -372,11 +372,11 @@ height = 16.0
 [node name="Stickler" type="CharacterBody2D"]
 scale = Vector2(10, 10)
 collision_layer = 4
-script = ExtResource("1_fkp5k")
+script = ExtResource("1_e3e5t")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_xlvrw")
-texture = ExtResource("3_71ymf")
+texture = ExtResource("3_n6mrh")
 hframes = 5
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
@@ -391,7 +391,7 @@ libraries = {
 position = Vector2(0, -10)
 
 [node name="Sprite2D" type="Sprite2D" parent="Pike"]
-texture = ExtResource("4_yoeo7")
+texture = ExtResource("4_kilit")
 flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Pike"]

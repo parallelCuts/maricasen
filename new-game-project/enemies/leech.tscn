@@ -1,12 +1,12 @@
 [gd_scene load_steps=21 format=3 uid="uid://bh02me1t2hj1y"]
 
-[ext_resource type="Script" uid="uid://dwvpcpd3lwes1" path="res://leechStateMachine.gd" id="1_eekcm"]
-[ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_45fi6"]
-[ext_resource type="Texture2D" uid="uid://cs1rrfky4ihpn" path="res://Low_Animations/leech.png" id="2_qydjk"]
-[ext_resource type="Texture2D" uid="uid://de55pxvbci7vc" path="res://Low_Animations/tongue.png" id="4_45fi6"]
+[ext_resource type="Script" uid="uid://dwvpcpd3lwes1" path="res://leechStateMachine.gd" id="1_cq6dk"]
+[ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_ti7ur"]
+[ext_resource type="Texture2D" uid="uid://cs1rrfky4ihpn" path="res://Low_Animations/leech.png" id="3_j7bkv"]
+[ext_resource type="Texture2D" uid="uid://de55pxvbci7vc" path="res://Low_Animations/tongue.png" id="4_04v4q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w6ipx"]
-shader = ExtResource("2_45fi6")
+shader = ExtResource("2_ti7ur")
 shader_parameter/flash_amount = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qydjk"]
@@ -111,14 +111,14 @@ radius = 1.48
 [node name="Leech" type="CharacterBody2D"]
 scale = Vector2(10, 10)
 collision_layer = 4
-script = ExtResource("1_eekcm")
+script = ExtResource("1_cq6dk")
 
 [node name="Head" type="CharacterBody2D" parent="."]
 collision_layer = 4
 
 [node name="Sprite" type="Sprite2D" parent="Head"]
 material = SubResource("ShaderMaterial_w6ipx")
-texture = ExtResource("2_qydjk")
+texture = ExtResource("3_j7bkv")
 flip_h = true
 vframes = 2
 
@@ -132,7 +132,7 @@ position = Vector2(-8.8, 0.1)
 position = Vector2(10, 0)
 
 [node name="Sprite" type="Sprite2D" parent="Head/Tongue"]
-texture = ExtResource("4_45fi6")
+texture = ExtResource("4_04v4q")
 flip_h = true
 hframes = 8
 
@@ -178,7 +178,7 @@ collision_layer = 4
 [node name="Sprite" type="Sprite2D" parent="Body1"]
 z_index = -1
 material = SubResource("ShaderMaterial_w6ipx")
-texture = ExtResource("2_qydjk")
+texture = ExtResource("3_j7bkv")
 flip_h = true
 vframes = 2
 frame = 1
@@ -197,7 +197,7 @@ collision_layer = 4
 [node name="Sprite" type="Sprite2D" parent="Body2"]
 z_index = -1
 material = SubResource("ShaderMaterial_w6ipx")
-texture = ExtResource("2_qydjk")
+texture = ExtResource("3_j7bkv")
 flip_h = true
 vframes = 2
 frame = 1
@@ -216,7 +216,7 @@ collision_layer = 4
 [node name="Sprite" type="Sprite2D" parent="Body3"]
 z_index = -1
 material = SubResource("ShaderMaterial_w6ipx")
-texture = ExtResource("2_qydjk")
+texture = ExtResource("3_j7bkv")
 flip_h = true
 vframes = 2
 frame = 1
@@ -238,7 +238,7 @@ collision_layer = 4
 [node name="Sprite" type="Sprite2D" parent="Body4"]
 z_index = -1
 material = SubResource("ShaderMaterial_w6ipx")
-texture = ExtResource("2_qydjk")
+texture = ExtResource("3_j7bkv")
 flip_h = true
 vframes = 2
 frame = 1

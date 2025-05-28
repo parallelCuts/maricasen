@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cky8flj7sw2ld"]
+
+[ext_resource type="Texture2D" uid="uid://d04nqk5bokaf5" path="res://Low_Animations/particle.png" id="1_kgu82"]
+[ext_resource type="Script" uid="uid://c1olwf7g0l0ux" path="res://particle.gd" id="2_pxd2d"]
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+amount = 50
+texture = ExtResource("1_kgu82")
+lifetime = 0.5
+speed_scale = 1.5
+explosiveness = 0.75
+randomness = 1.0
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+script = ExtResource("2_pxd2d")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

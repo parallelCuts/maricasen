@@ -16,7 +16,7 @@ const FLASH_DURATION := 0.5
 @onready var anim = $AnimationPlayer
 @onready var sprite = $Sprite
 
-@export var projSpeed = 2000
+@export var projSpeed = 1000
 
 var timer = 0
 var attackTimer = 0
@@ -119,7 +119,7 @@ func _physics_process(delta: float) -> void:
 			attackTimer -= delta
 		else:
 			var a = preload("res://web.tscn").instantiate()
-			a.global_position = global_position - Vector2(0, 500)
+			a.global_position = global_position
 			a.velocity = (player_position - global_position).normalized() * projSpeed
 			get_parent().add_child(a)
 			attackTimer = 3
@@ -132,3 +132,10 @@ func _on_player_body_position_updated(new_position: Vector2) -> void:
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	take_damage(10)
+	var particles = preload("res://enemy_particle.tscn").instantiate()
+	particles.position = Vector2(5, 0)
+	particles.one_shot = true
+	if area.global_position.x > global_position.x:
+		particles.position = Vector2(-5, 0)
+		particles.direction.x = -1
+	add_child(particles)

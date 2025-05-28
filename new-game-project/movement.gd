@@ -26,9 +26,6 @@ signal damage(damage: int)
 @export var health = 100
 
 @export var attackTimer = 0
-@export var attackKnockback = 0
-var attackKnockbackTimer = 3
-var attackKnockbackDirection = 1
 
 var wallJumpTimer = 0
 var wallJumpForce = 0
@@ -37,6 +34,9 @@ var dealDmg = false
 
 var takeDmg = false;
 var takeDmgTimer = 0
+var hitArea = null
+
+@onready var camAnim = $PlayerCamera/AnimationPlayer
 
 func _process(delta):
 	if flash_timer > 0.0:
@@ -80,22 +80,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("attack"):
 		if sprite.flip_h == true:
 			attack_anim.play("attack_left")
-			if dealDmg == true:
-				emit_signal("damage", 10)
-				attackKnockbackDirection = 1
-				attackKnockback = 500
-				attackKnockbackTimer = 0.2
 		elif sprite.flip_h == false:
 			attack_anim.play("attack_right")
-			if dealDmg == true:
-				emit_signal("damage", 10)
-				attackKnockbackDirection = -1
-				attackKnockback = 500
-				attackKnockbackTimer = 0.2
-	if attackKnockbackTimer > 0 and attackKnockback > 0:
-		velocity.x += attackKnockback * attackKnockbackDirection
-		attackKnockback -= 5
-		attackKnockbackTimer -= delta
 	
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall() or coyoteTimer > 0):
 		anim.play("jump")
@@ -127,7 +113,15 @@ func _physics_process(delta):
 	if takeDmg == true:
 		if takeDmgTimer < 0:
 			takeDmgTimer = 0.5
+			camAnim.play("shake")
 			take_damage(10)
+			var particles = preload("res://particle.tscn").instantiate()
+			particles.position = Vector2(50, 0)
+			particles.one_shot = true
+			if hitArea.global_position.x > global_position.x:
+				particles.position = Vector2(-50, 0)
+				particles.direction.x = -1
+			add_child(particles)
 		else:
 			takeDmgTimer -= delta
 	move_and_slide()
@@ -135,7 +129,13 @@ func _physics_process(delta):
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	takeDmgTimer = 0
 	takeDmg = true
+	hitArea = area
 
 
 func _on_hurtbox_area_exited(area: Area2D) -> void:
 	takeDmg = false
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if attack_anim.is_playing():
+		camAnim.play("shake")

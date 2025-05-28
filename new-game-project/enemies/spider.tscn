@@ -1,19 +1,19 @@
 [gd_scene load_steps=14 format=3 uid="uid://dsj5begxe6788"]
 
-[ext_resource type="Script" uid="uid://blflwahtrp7xq" path="res://spiderStateMachine.gd" id="1_k3kcl"]
-[ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_1yt70"]
-[ext_resource type="Texture2D" uid="uid://d2hwvut4dsfor" path="res://Low_Animations/spider_walk.png" id="3_1yt70"]
-[ext_resource type="Texture2D" uid="uid://likbhnr2su5u" path="res://Low_Animations/spider_jump.png" id="4_vivtl"]
+[ext_resource type="Script" uid="uid://blflwahtrp7xq" path="res://spiderStateMachine.gd" id="1_n5u3y"]
+[ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_axe26"]
+[ext_resource type="Texture2D" uid="uid://d2hwvut4dsfor" path="res://Low_Animations/spider_walk.png" id="3_lp0j7"]
+[ext_resource type="Texture2D" uid="uid://likbhnr2su5u" path="res://Low_Animations/spider_jump.png" id="4_cqt7y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vivtl"]
-shader = ExtResource("2_1yt70")
+shader = ExtResource("2_axe26")
 shader_parameter/flash_amount = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1yt70"]
 radius = 13.6624
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vivtl"]
-radius = 13.66
+radius = 15.0
 
 [sub_resource type="Animation" id="Animation_binfs"]
 length = 0.001
@@ -27,7 +27,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_1yt70")]
+"values": [ExtResource("3_lp0j7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -69,7 +69,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_1yt70")]
+"values": [ExtResource("3_lp0j7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -110,7 +110,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_vivtl")]
+"values": [ExtResource("4_cqt7y")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -152,7 +152,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_1yt70")]
+"values": [ExtResource("3_lp0j7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -193,11 +193,11 @@ radius = 13.66
 [node name="Spider" type="CharacterBody2D"]
 scale = Vector2(10, 10)
 collision_layer = 4
-script = ExtResource("1_k3kcl")
+script = ExtResource("1_n5u3y")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_vivtl")
-texture = ExtResource("3_1yt70")
+texture = ExtResource("3_lp0j7")
 hframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
