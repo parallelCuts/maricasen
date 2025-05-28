@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d04nqk5bokaf5" path="res://Low_Animations/particle.png" id="1_ua0ly"]
 
 [node name="CPUParticles2D" type="CPUParticles2D"]
-amount = 30
+amount = 10
 texture = ExtResource("1_ua0ly")
 lifetime = 0.9
 explosiveness = 0.8

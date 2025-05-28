@@ -21,6 +21,8 @@ const FLASH_DURATION := 0.5
 var timer = 0
 var attackTimer = 0
 
+var isDead = false
+
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
 
@@ -41,90 +43,95 @@ func _physics_process(delta: float) -> void:
 	velocity.y += gravity * delta
 	
 	if health <= 0:
-		queue_free()
+		if isDead == false:
+			anim.play("death")
+		if !anim.is_playing() and isDead == true:
+			queue_free()
+		isDead = true
 	
-	var playerDist = player_position.distance_to(global_position)
-	var direction = Vector2()
-	if playerDist > 700:
-		var leftOrRight = randi_range(0, 1)
-		if timer > 0:
-			timer -= delta
+	if not isDead:
+		var playerDist = player_position.distance_to(global_position)
+		var direction = Vector2()
+		if playerDist > 700:
+			var leftOrRight = randi_range(0, 1)
+			if timer > 0:
+				timer -= delta
+				if is_on_floor():
+					anim.play("run")
+					if leftOrRight == 0:
+						if !leftBound.is_colliding():
+							anim.play("idle")
+							velocity.x = 0
+						else:
+							velocity.x = -1 * speed
+						sprite.flip_h = false
+					else:
+						if !rightBound.is_colliding():
+							anim.play("idle")
+							velocity.x = 0
+						else:
+							velocity.x = speed
+						sprite.flip_h = true
+			else:
+				anim.play("jump")
+				velocity.y += jump
+				if randi_range(0, 1) == 0:
+					velocity.x += speed * 2
+				else:
+					velocity.x -= speed * 2
+				timer = randf_range(1, 3)
+		elif playerDist > 200:
+			if timer > 0:
+				timer -= delta
+				if is_on_floor():
+					anim.play("run")
+					if player_position.x < global_position.x:
+						if !leftBound.is_colliding():
+							anim.play("idle")
+							velocity.x = 0
+						else:
+							velocity.x = -1 * speed
+						sprite.flip_h = false
+					else:
+						if !rightBound.is_colliding():
+							anim.play("idle")
+							velocity.x = 0
+						else:
+							velocity.x = speed
+						sprite.flip_h = true
+			else:
+				anim.play("jump")
+				velocity.y += jump
+				if randi_range(0, 1) == 0:
+					velocity.x += speed * 2
+				else:
+					velocity.x -= speed * 2
+				timer = randf_range(2, 5)
+		else:
+			if timer > 0:
+				timer -= delta
+			else:
+				velocity.y += jump
+				if randi_range(0, 1) == 0:
+					velocity.x += speed * 2
+				else:
+					velocity.x -= speed * 2
+				timer = randf_range(1, 2)
 			if is_on_floor():
 				anim.play("run")
-				if leftOrRight == 0:
-					if !leftBound.is_colliding():
-						anim.play("idle")
-						velocity.x = 0
-					else:
-						velocity.x = -1 * speed
-					sprite.flip_h = false
-				else:
-					if !rightBound.is_colliding():
-						anim.play("idle")
-						velocity.x = 0
-					else:
-						velocity.x = speed
-					sprite.flip_h = true
-		else:
-			anim.play("jump")
-			velocity.y += jump
-			if randi_range(0, 1) == 0:
-				velocity.x += speed * 2
 			else:
-				velocity.x -= speed * 2
-			timer = randf_range(1, 3)
-	elif playerDist > 200:
-		if timer > 0:
-			timer -= delta
-			if is_on_floor():
-				anim.play("run")
-				if player_position.x < global_position.x:
-					if !leftBound.is_colliding():
-						anim.play("idle")
-						velocity.x = 0
-					else:
-						velocity.x = -1 * speed
-					sprite.flip_h = false
-				else:
-					if !rightBound.is_colliding():
-						anim.play("idle")
-						velocity.x = 0
-					else:
-						velocity.x = speed
-					sprite.flip_h = true
-		else:
-			anim.play("jump")
-			velocity.y += jump
-			if randi_range(0, 1) == 0:
-				velocity.x += speed * 2
+				anim.play("jump")
+		if playerDist < 800:
+			if attackTimer > 0:
+				attackTimer -= delta
 			else:
-				velocity.x -= speed * 2
-			timer = randf_range(2, 5)
-	else:
-		if timer > 0:
-			timer -= delta
-		else:
-			velocity.y += jump
-			if randi_range(0, 1) == 0:
-				velocity.x += speed * 2
-			else:
-				velocity.x -= speed * 2
-			timer = randf_range(1, 2)
-		if is_on_floor():
-			anim.play("run")
-		else:
-			anim.play("jump")
-	if playerDist < 800:
-		if attackTimer > 0:
-			attackTimer -= delta
-		else:
-			var a = preload("res://web.tscn").instantiate()
-			a.global_position = global_position
-			a.velocity = (player_position - global_position).normalized() * projSpeed
-			get_parent().add_child(a)
-			attackTimer = 3
+				var a = preload("res://web.tscn").instantiate()
+				a.global_position = global_position
+				a.velocity = (player_position - global_position).normalized() * projSpeed
+				get_parent().add_child(a)
+				attackTimer = 3
 	
-	move_and_slide()
+		move_and_slide()
 
 func _on_player_body_position_updated(new_position: Vector2) -> void:
 	player_position = new_position

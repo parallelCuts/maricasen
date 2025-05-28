@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://c2i4o5jscvebg"]
+[gd_scene load_steps=21 format=3 uid="uid://c2i4o5jscvebg"]
 
 [ext_resource type="Script" uid="uid://03gwt3q2n3to" path="res://sticklerStateMachine.gd" id="1_e3e5t"]
 [ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_8yrx1"]
 [ext_resource type="Texture2D" uid="uid://td8l5qnpkm2j" path="res://Low_Animations/stickler_run.png" id="3_n6mrh"]
+[ext_resource type="Texture2D" uid="uid://qfbufn1k8n75" path="res://Low_Animations/stickler_death.png" id="4_8yrx1"]
 [ext_resource type="Texture2D" uid="uid://djy5fd4etib2x" path="res://Low_Animations/stickler_weapon.png" id="4_kilit"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xlvrw"]
@@ -219,9 +220,50 @@ tracks/4/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_n6mrh"]
+resource_name = "death"
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_8yrx1")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fy5k1"]
 _data = {
 &"RESET": SubResource("Animation_5juve"),
+&"death": SubResource("Animation_n6mrh"),
 &"idle": SubResource("Animation_akxrc"),
 &"run": SubResource("Animation_73fnb")
 }

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c1olwf7g0l0ux" path="res://particle.gd" id="2_pxd2d"]
 
 [node name="CPUParticles2D" type="CPUParticles2D"]
-amount = 50
+amount = 5
 texture = ExtResource("1_kgu82")
 lifetime = 0.5
 speed_scale = 1.5

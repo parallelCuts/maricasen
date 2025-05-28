@@ -23,10 +23,14 @@ var attackTimer = 0;
 @onready var tongue = $Head/Tongue
 @onready var tongue_anim = $Head/Tongue/AnimationPlayer
 
+@onready var anim = $AnimationPlayer
+var isDead = false
+
 func _ready() -> void:
 	head.get_node("Sprite").material = head.get_node("Sprite").material.duplicate()
 	for part in body_parts:
 		part.get_node("Sprite").material = head.get_node("Sprite").material.duplicate()
+	anim.play("idle")
 
 func _process(delta):
 	var mat = head.get_node("Sprite").material
@@ -52,42 +56,47 @@ func _physics_process(delta):
 	var playerDist = player_position.distance_to(head.global_position)
 	
 	if health <= 0:
-		queue_free()
+		if isDead == false:
+			anim.play("death")
+		if !anim.is_playing() and isDead == true:
+			queue_free()
+		isDead = true
 	
-	for h in range(hurtboxes.size()):
-		if h == 0:
-			hurtboxes[h].global_position = head.global_position
-			hitboxes[h].global_position = head.global_position
-		else:
-			hurtboxes[h].global_position = body_parts[h - 1].global_position
-			hitboxes[h].global_position = body_parts[h - 1].global_position
-	
-	if playerDist > 700:
-		if timer > 0:
-			movement(randPosition + head.global_position)
-			timer -= delta
-		else:
-			randPosition = Vector2(randf_range(-1, 1), randf_range(-1, 1))
-			timer = randf_range(2, 5)
-	elif playerDist > 200:
-		timer = 0
-		movement(player_position)
-	else:
-		timer = 0
-		head.velocity = Vector2.ZERO
-		head.look_at(player_position)
-		if attackTimer > 0:
-			attackTimer -= delta
-		else:
-			tongue.look_at(player_position)
-			tongue_anim.play("lick")
-			attackTimer = 1
-		for i in range(body_parts.size()):
-			body_parts[i].velocity = Vector2.ZERO
-			if i == 0:
-				body_parts[i].look_at(head.global_position)
+	if not isDead:
+		for h in range(hurtboxes.size()):
+			if h == 0:
+				hurtboxes[h].global_position = head.global_position
+				hitboxes[h].global_position = head.global_position
 			else:
-				body_parts[i].look_at(body_parts[i - 1].global_position)
+				hurtboxes[h].global_position = body_parts[h - 1].global_position
+				hitboxes[h].global_position = body_parts[h - 1].global_position
+		if playerDist > 700:
+			if timer > 0:
+				movement(randPosition + head.global_position)
+				timer -= delta
+			else:
+				randPosition = Vector2(randf_range(-1, 1), randf_range(-1, 1))
+				timer = randf_range(2, 5)
+		elif playerDist > 200:
+			timer = 0
+			movement(player_position)
+		else:
+			timer = 0
+			head.velocity = Vector2.ZERO
+			head.look_at(player_position)
+			if attackTimer > 0:
+				attackTimer -= delta
+			else:
+				tongue.look_at(player_position)
+				tongue_anim.play("lick")
+				attackTimer = 1
+			for i in range(body_parts.size()):
+				body_parts[i].velocity = Vector2.ZERO
+				if i == 0:
+					body_parts[i].look_at(head.global_position)
+				else:
+					body_parts[i].look_at(body_parts[i - 1].global_position)
+
 func movement(target):
 	var direction = (target - head.global_position).normalized()
 	head.velocity = direction * speed

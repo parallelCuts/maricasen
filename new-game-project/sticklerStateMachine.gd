@@ -27,7 +27,7 @@ var playerInVision = false
 
 @export var health = 30
 
-signal damage(damage: int)
+var isDead = false
 
 func _ready() -> void:
 	sprite.material = sprite.material.duplicate()
@@ -49,62 +49,67 @@ func _physics_process(delta):
 	velocity.y += gravity * delta
 	
 	if health <= 0:
-		queue_free()
+		if isDead == false:
+			anim.play("death")
+		if !anim.is_playing() and isDead == true:
+			queue_free()
+		isDead = true
 	
-	var playerDist = player_position.distance_to(global_position)
-	var direction = Vector2()
-	if playerDist > 300 and playerInVision == true:
-		anim.play("run")
-		if player_position.x < global_position.x:
-			if !leftBound.is_colliding():
-				anim.play("idle")
-				velocity.x = 0
-			else:
-				velocity.x = -1 * speed
-			sprite.flip_h = true
-			pike_sprite.flip_h = true
-		else:
-			if !rightBound.is_colliding():
-				anim.play("idle")
-				velocity.x = 0
-			else:
-				velocity.x = speed
-			sprite.flip_h = false
-			pike_sprite.flip_h = false
-	elif playerDist > 300:
-		anim.play("run")
-		if timer > 0:
-			if !rightBound.is_colliding():
-				leftOrRight = 0
-			elif !leftBound.is_colliding():
-				leftOrRight = 1
-			if leftOrRight == 0:
-				sprite.flip_h = true
-				pike_sprite.flip_h = true
-				velocity.x = -1 * speed
-			else:
-				sprite.flip_h = false
-				pike_sprite.flip_h = false
-				velocity.x = speed
-			timer -= delta
-		else:
-			leftOrRight = randi_range(0, 1)
-			timer = randf_range(2, 5)
-	else:
-		if attackTimer > 0:
-			attackTimer -= delta
-		else:
-			velocity.x = 0
+	if not isDead:
+		var playerDist = player_position.distance_to(global_position)
+		var direction = Vector2()
+		if playerDist > 300 and playerInVision == true:
+			anim.play("run")
 			if player_position.x < global_position.x:
+				if !leftBound.is_colliding():
+					anim.play("idle")
+					velocity.x = 0
+				else:
+					velocity.x = -1 * speed
 				sprite.flip_h = true
 				pike_sprite.flip_h = true
-				pike_anim.play("attack_left")
 			else:
+				if !rightBound.is_colliding():
+					anim.play("idle")
+					velocity.x = 0
+				else:
+					velocity.x = speed
 				sprite.flip_h = false
 				pike_sprite.flip_h = false
-				pike_anim.play("attack_right")
-			attackTimer = 1
-	move_and_slide()
+		elif playerDist > 300:
+			anim.play("run")
+			if timer > 0:
+				if !rightBound.is_colliding():
+					leftOrRight = 0
+				elif !leftBound.is_colliding():
+					leftOrRight = 1
+				if leftOrRight == 0:
+					sprite.flip_h = true
+					pike_sprite.flip_h = true
+					velocity.x = -1 * speed
+				else:
+					sprite.flip_h = false
+					pike_sprite.flip_h = false
+					velocity.x = speed
+				timer -= delta
+			else:
+				leftOrRight = randi_range(0, 1)
+				timer = randf_range(2, 5)
+		else:
+			if attackTimer > 0:
+				attackTimer -= delta
+			else:
+				velocity.x = 0
+				if player_position.x < global_position.x:
+					sprite.flip_h = true
+					pike_sprite.flip_h = true
+					pike_anim.play("attack_left")
+				else:
+					sprite.flip_h = false
+					pike_sprite.flip_h = false
+					pike_anim.play("attack_right")
+				attackTimer = 1
+		move_and_slide()
 
 
 func _on_player_body_position_updated(new_position: Vector2) -> void:
