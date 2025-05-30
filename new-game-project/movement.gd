@@ -55,7 +55,6 @@ func take_damage(damage):
 func _physics_process(delta):
 	if health <= 0:
 		queue_free()
-		get_tree().paused = true
 	# Add gravity every frame
 	emit_signal("position_updated", global_position)
 	velocity.y += gravity * delta
