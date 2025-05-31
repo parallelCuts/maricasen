@@ -18,11 +18,11 @@ func _draw():
 				0:
 					continue  # Skip empty
 				1:
-					color = Color.GREEN      # Starting room
+					color = Color(0.3, 1, 0.3, 0.5)
 				2:
-					color = Color.LIGHT_GRAY # Normal room
+					color = Color(0.7, 0.7, 0.7, 0.5)
 				3:
-					color = Color.RED        # Final room
+					color = Color(1, 0.3, 0.3, 0.5)
 			var px = x * (tile_size + spacing)
 			var py = y * (tile_size + spacing)
 			var rect = Rect2(px, py, tile_size, tile_size)

@@ -23,7 +23,7 @@ const maxJumps = 2
 signal position_updated(new_position: Vector2)
 signal damage(damage: int)
 
-@export var health = 100
+@export var health = 0
 
 @export var attackTimer = 0
 

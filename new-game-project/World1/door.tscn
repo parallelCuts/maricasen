@@ -1,0 +1,129 @@
+[gd_scene load_steps=9 format=3 uid="uid://bcjwc4itp2kpo"]
+
+[ext_resource type="Script" uid="uid://8743liasr11p" path="res://World1/door.gd" id="1_35nde"]
+[ext_resource type="Texture2D" uid="uid://xeka4ywc7qbu" path="res://Low_Animations/world1Door.png" id="1_mpeh7"]
+
+[sub_resource type="Animation" id="Animation_115c0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_lvm7d"]
+resource_name = "closed"
+length = 0.833342
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333, 0.666667, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_2hq7n"]
+resource_name = "open"
+length = 0.0833417
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i2yey"]
+_data = {
+&"RESET": SubResource("Animation_115c0"),
+&"closed": SubResource("Animation_lvm7d"),
+&"open": SubResource("Animation_2hq7n")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x3lv0"]
+size = Vector2(6.20001, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x3t4i"]
+size = Vector2(6, 48)
+
+[node name="Door" type="StaticBody2D"]
+script = ExtResource("1_35nde")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(-6.4, 2.4)
+texture = ExtResource("1_mpeh7")
+hframes = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_i2yey")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6.29999, 2.4)
+shape = SubResource("RectangleShape2D_x3lv0")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-6.3, 2.4)
+shape = SubResource("RectangleShape2D_x3t4i")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
