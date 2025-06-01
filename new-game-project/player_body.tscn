@@ -604,7 +604,6 @@ scale = Vector2(10, 10)
 
 [node name="Sprite2D" type="Sprite2D" parent="Attack"]
 visible = false
-scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_f57or")
 flip_h = true
 hframes = 4
