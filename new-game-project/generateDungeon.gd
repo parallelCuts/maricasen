@@ -7,6 +7,7 @@ var dungeonVisualizer = []
 var dungeonArray = []
 
 var playerPos = Vector2.ZERO
+var pastPlayerPos = Vector2.ZERO
 
 var roomQueue = []
 var health = 0
@@ -103,6 +104,7 @@ func _ready() -> void:
 			dungeonArray[position.y][position.x] = r
 			dungeonVisualizer[position.y][position.x] = 3 if i == numOfRooms - 1 else 2
 			i += 1
+			pastPlayerPos = playerPos
 	
 	roomChange()
 
@@ -154,8 +156,15 @@ func roomChange():
 				room.get_node("Ground/UpDoor/AnimationPlayer").play("open")
 	if counter == 0:
 		health = 100
-	print(health)
 	counter += 1
 	room.get_node("PlayerGroup/PlayerBody").health = health
+	if pastPlayerPos.x > playerPos.x:
+		room.get_node("PlayerGroup/PlayerBody").global_position = room.get_node("Ground/RightDoor").global_position + Vector2(-150, 0)
+	elif pastPlayerPos.x < playerPos.x:
+		room.get_node("PlayerGroup/PlayerBody").global_position = room.get_node("Ground/LeftDoor").global_position + Vector2(150, 0)
+	elif pastPlayerPos.y > playerPos.y:
+		room.get_node("PlayerGroup/PlayerBody").global_position = room.get_node("Ground/DownDoor").global_position + Vector2(0, -150)
+	elif pastPlayerPos.y < playerPos.y:
+		room.get_node("PlayerGroup/PlayerBody").global_position = room.get_node("Ground/UpDoor").global_position + Vector2(0, 150)
+	pastPlayerPos = playerPos
 	add_child(room)
-	print(playerPos)
