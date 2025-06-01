@@ -4,13 +4,17 @@ extends Node2D
 @onready var healthBar = $UI/Healthbar
 @onready var world = get_parent().get_parent()
 var last_health := -1
-var current_health
-func _process(delta): 
+var current_health = 100
+func _ready() -> void:
+	current_health = $PlayerBody.health
 	world.health = current_health
+	current_health = world.health
+	healthBar.value = current_health
+func _process(delta): 
 	if $PlayerBody:
 		current_health = $PlayerBody.health
-	else:
-		current_health = 0
+	world.health = current_health
+	current_health = world.health
 	if current_health != last_health:
 		last_health = current_health
 		update_health_bar(current_health)

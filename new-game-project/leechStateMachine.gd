@@ -120,9 +120,9 @@ func _on_player_body_position_updated(new_position: Vector2) -> void:
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	take_damage(10)
 	var particles = preload("res://enemy_particle.tscn").instantiate()
-	particles.position = Vector2(5, 0)
+	particles.position = body_parts[3].global_position + Vector2(5, 0)
 	particles.one_shot = true
-	if area.global_position.x > global_position.x:
-		particles.position = Vector2(-5, 0)
+	if area.global_position.x > head.global_position.x:
+		particles.position = head.global_position + Vector2(-5, 0)
 		particles.direction.x = -1
 	add_child(particles)

@@ -386,7 +386,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-50, 0)]
+"values": [Vector2(-100, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -463,7 +463,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(50, 0)]
+"values": [Vector2(100, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -558,8 +558,8 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5juve"]
-radius = 9.4
-height = 25.0
+radius = 18.2
+height = 54.4
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_73fnb"]
 radius = 45.0
@@ -604,6 +604,7 @@ scale = Vector2(10, 10)
 
 [node name="Sprite2D" type="Sprite2D" parent="Attack"]
 visible = false
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_f57or")
 flip_h = true
 hframes = 4

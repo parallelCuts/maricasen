@@ -11,6 +11,8 @@ var playerPos = Vector2.ZERO
 var roomQueue = []
 var health = 0
 
+var counter = 0
+
 class room:
 	var openings = []
 	var down = false
@@ -150,8 +152,10 @@ func roomChange():
 				room.get_node("Ground/LeftDoor/AnimationPlayer").play("open")
 			"down":
 				room.get_node("Ground/UpDoor/AnimationPlayer").play("open")
-	if r.entrance == "spawn":
+	if counter == 0:
 		health = 100
+	print(health)
+	counter += 1
 	room.get_node("PlayerGroup/PlayerBody").health = health
 	add_child(room)
 	print(playerPos)
