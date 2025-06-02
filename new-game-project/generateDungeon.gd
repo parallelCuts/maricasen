@@ -14,6 +14,9 @@ var health = 0
 
 var counter = 0
 
+@onready var sv = $SubViewport
+@onready var tr = $TextureRect
+
 class room:
 	var openings = []
 	var down = false
@@ -27,6 +30,24 @@ class room:
 		entrance = e
 		position = p
 
+func _on_viewport_size_changed() -> void:
+	var base_res = Vector2(1920, 1080) / 1.5
+	sv.size = base_res
+	var window_size = Vector2(DisplayServer.window_get_size())
+	var scale_factor = min(window_size.x / base_res.x, window_size.y / base_res.y)
+	# Ensure scale factor is never zero
+	scale_factor = max(scale_factor, 0.01)
+	# Scaled size while maintaining aspect ratio
+	var scaled_size = base_res * scale_factor
+	# Center the TextureRect (letterbox/pillarbox)
+	tr.size = scaled_size
+	tr.position = (window_size - scaled_size) / 2.0
+	# Set the SubViewport texture
+	tr.texture = sv.get_texture()
+	# Set shader parameter if applicable
+	if tr.material:
+		tr.material.set_shader_parameter("viewport_tex", sv.get_texture())
+ 
 func _ready() -> void:
 	# Initialize the arrays
 	for a in range(length):
@@ -37,7 +58,11 @@ func _ready() -> void:
 			tempVisualizer.append(0)
 		dungeonArray.append(tempArray)
 		dungeonVisualizer.append(tempVisualizer)
-
+	
+	_on_viewport_size_changed()
+	# Connect to the root viewport's size_changed signal
+	get_viewport().connect("size_changed", Callable(self, "_on_viewport_size_changed"))
+	
 	var i = 0
 	while i < numOfRooms:
 		var position = Vector2.ZERO
@@ -167,4 +192,4 @@ func roomChange():
 	elif pastPlayerPos.y < playerPos.y:
 		room.get_node("PlayerGroup/PlayerBody").global_position = room.get_node("Ground/UpDoor").global_position + Vector2(0, 150)
 	pastPlayerPos = playerPos
-	add_child(room)
+	sv.add_child(room)

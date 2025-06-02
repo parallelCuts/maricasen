@@ -38,6 +38,9 @@ var hitArea = null
 
 @onready var camAnim = $PlayerCamera/AnimationPlayer
 
+var parryTimer = 0
+@onready var parry_anim = $ParryAnimationPlayer
+
 func _process(delta):
 	if flash_timer > 0.0:
 		flash_timer -= delta
@@ -112,17 +115,29 @@ func _physics_process(delta):
 	if takeDmg == true:
 		if takeDmgTimer < 0:
 			takeDmgTimer = 0.5
-			camAnim.play("shake")
-			take_damage(10)
-			var particles = preload("res://particle.tscn").instantiate()
-			particles.position = Vector2(50, 0)
-			particles.one_shot = true
-			if hitArea.global_position.x > global_position.x:
-				particles.position = Vector2(-50, 0)
-				particles.direction.x = -1
-			add_child(particles)
+			if ((attack_anim.current_animation == "parry_right" or attack_anim.current_animation == "parry_left") and attack_anim.is_playing()) or parryTimer > 0:
+				camAnim.play("parry")
+				parry_anim.play("parry_spark")
+				take_damage(0)
+			else:
+				camAnim.play("shake")
+				take_damage(10)
+				var particles = preload("res://particle.tscn").instantiate()
+				particles.position = Vector2(50, 0)
+				particles.one_shot = true
+				if hitArea.global_position.x > global_position.x:
+					particles.position = Vector2(-50, 0)
+					particles.direction.x = -1
+				add_child(particles)
 		else:
 			takeDmgTimer -= delta
+	parryTimer -= delta
+	if Input.is_action_just_pressed("parry"):
+		if sprite.flip_h == true:
+			attack_anim.play("parry_left")
+		else:
+			attack_anim.play("parry_right")
+		parryTimer = 0.55
 	move_and_slide()
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
