@@ -26,6 +26,8 @@ var attackTimer = 0;
 @onready var anim = $AnimationPlayer
 var isDead = false
 
+var hurtTime = 0
+
 func _ready() -> void:
 	head.get_node("Sprite").material = head.get_node("Sprite").material.duplicate()
 	for part in body_parts:
@@ -96,6 +98,7 @@ func _physics_process(delta):
 					body_parts[i].look_at(head.global_position)
 				else:
 					body_parts[i].look_at(body_parts[i - 1].global_position)
+	hurtTime -= delta
 
 func movement(target):
 	var direction = (target - head.global_position).normalized()
@@ -118,11 +121,12 @@ func _on_player_body_position_updated(new_position: Vector2) -> void:
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	take_damage(10)
-	var particles = preload("res://enemy_particle.tscn").instantiate()
-	particles.position = body_parts[3].global_position + Vector2(5, 0)
-	particles.one_shot = true
-	if area.global_position.x > head.global_position.x:
-		particles.position = head.global_position + Vector2(-5, 0)
-		particles.direction.x = -1
-	add_child(particles)
+	if hurtTime <= 0:
+		take_damage(10)
+		var particles = preload("res://enemy_particle.tscn").instantiate()
+		particles.global_position = head.global_position
+		particles.one_shot = true
+		if area.global_position.x > head.global_position.x:
+			particles.direction.x = -1
+		add_child(particles)
+		hurtTime = 0.5

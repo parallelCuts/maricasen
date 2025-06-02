@@ -29,6 +29,8 @@ var playerInVision = false
 
 var isDead = false
 
+var hurtTime = 0
+
 func _ready() -> void:
 	sprite.material = sprite.material.duplicate()
 	mat = sprite.material
@@ -123,11 +125,12 @@ func _on_vision_body_exited(body: Node2D) -> void:
 	playerInVision = false
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	take_damage(10)
-	var particles = preload("res://enemy_particle.tscn").instantiate()
-	particles.position = Vector2(5, 0)
-	particles.one_shot = true
-	if area.global_position.x > global_position.x:
-		particles.position = Vector2(-5, 0)
-		particles.direction.x = -1
-	add_child(particles)
+	if hurtTime <= 0:
+		take_damage(10)
+		var particles = preload("res://enemy_particle.tscn").instantiate()
+		particles.position = Vector2(5, 0)
+		particles.one_shot = true
+		if area.global_position.x > global_position.x:
+			particles.position = Vector2(-5, 0)
+			particles.direction.x = -1
+		add_child(particles)
