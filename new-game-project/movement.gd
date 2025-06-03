@@ -137,7 +137,7 @@ func _physics_process(delta):
 			attack_anim.play("parry_left")
 		else:
 			attack_anim.play("parry_right")
-		parryTimer = 0.55
+		parryTimer = 0.4
 	move_and_slide()
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:

@@ -124,9 +124,9 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if hurtTime <= 0:
 		take_damage(10)
 		var particles = preload("res://enemy_particle.tscn").instantiate()
-		particles.global_position = head.global_position
+		particles.position = body_parts[3].position
 		particles.one_shot = true
-		if area.global_position.x > head.global_position.x:
+		if area.global_position.x > body_parts[3].global_position.x:
 			particles.direction.x = -1
 		add_child(particles)
 		hurtTime = 0.5

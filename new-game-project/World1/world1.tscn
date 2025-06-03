@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://ba2y5e0af2553"]
+[gd_scene load_steps=4 format=3 uid="uid://ba2y5e0af2553"]
 
 [ext_resource type="Script" uid="uid://ct433s1xbjvib" path="res://generateDungeon.gd" id="1_xvgw5"]
-[ext_resource type="Script" uid="uid://hkduqtthoqom" path="res://minimap.gd" id="2_pkque"]
 [ext_resource type="Shader" uid="uid://wfqojcgwiiby" path="res://World1/fancy.gdshader" id="3_pkque"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_800qk"]
@@ -18,21 +17,6 @@ script = ExtResource("1_xvgw5")
 numOfRooms = 10
 length = 5
 world = "World1"
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Minimap" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -152.0
-offset_top = 10.0
-offset_right = -152.0
-offset_bottom = 10.0
-grow_horizontal = 0
-scale = Vector2(3, 3)
-script = ExtResource("2_pkque")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_800qk")

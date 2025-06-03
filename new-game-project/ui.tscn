@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bd8m4hh2jd18y"]
+[gd_scene load_steps=4 format=3 uid="uid://bd8m4hh2jd18y"]
 
 [ext_resource type="Texture2D" uid="uid://bo2l52ub6exmh" path="res://Low_Animations/healthBar.png" id="1_m6e0p"]
 [ext_resource type="Texture2D" uid="uid://dfi0ajbxxuxha" path="res://Low_Animations/health.png" id="2_27fn8"]
+[ext_resource type="Script" uid="uid://hkduqtthoqom" path="res://minimap.gd" id="3_27fn8"]
 
 [node name="UI" type="CanvasLayer"]
 layer = 10
@@ -15,3 +16,17 @@ scale = Vector2(5, 5)
 value = 100.0
 texture_over = ExtResource("1_m6e0p")
 texture_progress = ExtResource("2_27fn8")
+
+[node name="Minimap" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -152.0
+offset_top = 10.0
+offset_right = -152.0
+offset_bottom = 10.0
+grow_horizontal = 0
+scale = Vector2(3, 3)
+script = ExtResource("3_27fn8")
+metadata/_edit_use_anchors_ = true
