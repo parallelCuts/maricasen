@@ -17,6 +17,8 @@ var counter = 0
 @onready var sv = $SubViewport
 @onready var tr = $TextureRect
 
+@onready var ostPlayer = $OSTPlayer
+
 class room:
 	var openings = []
 	var down = false
@@ -58,6 +60,8 @@ func _ready() -> void:
 			tempVisualizer.append(0)
 		dungeonArray.append(tempArray)
 		dungeonVisualizer.append(tempVisualizer)
+	
+	ostPlayer.play()
 	
 	_on_viewport_size_changed()
 	# Connect to the root viewport's size_changed signal

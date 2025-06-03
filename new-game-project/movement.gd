@@ -21,7 +21,6 @@ var jump_count = 0
 const maxJumps = 2
 
 signal position_updated(new_position: Vector2)
-signal damage(damage: int)
 
 @export var health = 0
 
@@ -40,6 +39,13 @@ var hitArea = null
 
 var parryTimer = 0
 @onready var parry_anim = $ParryAnimationPlayer
+
+@onready var hitSFX = $HitSFX
+@onready var hurtSFX = $HurtSFX
+@onready var jumpSFX = $JumpSFX
+@onready var parrySparkSFX = $ParrySparkSFX
+@onready var slashSFX = $SlashSFX
+@onready var parrySFX = $ParrySFX
 
 func _process(delta):
 	if flash_timer > 0.0:
@@ -80,6 +86,9 @@ func _physics_process(delta):
 		jump_count = 0
 	
 	if Input.is_action_just_pressed("attack"):
+		if attack_anim.is_playing() == false:
+			slashSFX.pitch_scale = randf_range(0.7, 1.3)
+			slashSFX.play(0.0)
 		if sprite.flip_h == true:
 			attack_anim.play("attack_left")
 		elif sprite.flip_h == false:
@@ -90,6 +99,7 @@ func _physics_process(delta):
 		velocity.y = avg_jump
 		jump_count = 1
 		jump = max_jump
+		jumpSFX.play(0.0)
 		if is_on_wall() and Input.is_action_pressed("left"):
 			wallJumpTimer = 0.2
 			wallJumpForce = 1000
@@ -101,6 +111,7 @@ func _physics_process(delta):
 		velocity.y = avg_jump
 		jump_count += 2
 		jump = max_jump
+		jumpSFX.play(0.0)
 	if Input.is_action_pressed("jump") and jump < 0:
 		velocity.y += jump;
 		jump += 10;
@@ -116,10 +127,12 @@ func _physics_process(delta):
 		if takeDmgTimer < 0:
 			takeDmgTimer = 0.5
 			if ((attack_anim.current_animation == "parry_right" or attack_anim.current_animation == "parry_left") and attack_anim.is_playing()) or parryTimer > 0:
+				parrySparkSFX.play(0.0)
 				camAnim.play("parry")
 				parry_anim.play("parry_spark")
 				take_damage(0)
 			else:
+				hurtSFX.play(0.0)
 				camAnim.play("shake")
 				take_damage(10)
 				var particles = preload("res://particle.tscn").instantiate()
@@ -133,6 +146,7 @@ func _physics_process(delta):
 			takeDmgTimer -= delta
 	parryTimer -= delta
 	if Input.is_action_just_pressed("parry"):
+		parrySFX.play(0.0)
 		if sprite.flip_h == true:
 			attack_anim.play("parry_left")
 		else:
@@ -152,4 +166,5 @@ func _on_hurtbox_area_exited(area: Area2D) -> void:
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if attack_anim.is_playing():
+		hitSFX.play(0.0)
 		camAnim.play("shake")
