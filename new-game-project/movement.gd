@@ -146,7 +146,9 @@ func _physics_process(delta):
 			takeDmgTimer -= delta
 	parryTimer -= delta
 	if Input.is_action_just_pressed("parry"):
-		parrySFX.play(0.0)
+		if attack_anim.is_playing() == false:
+			parrySFX.pitch_scale = randf_range(0.7, 1.3)
+			parrySFX.play(0.0)
 		if sprite.flip_h == true:
 			attack_anim.play("parry_left")
 		else:

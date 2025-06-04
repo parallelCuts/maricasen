@@ -11,6 +11,10 @@ uniform float vignette_strength = 0.3;
 uniform float bloom_strength = 0.2;
 uniform float noise_strength = 0.03;
 
+uniform float darkness = 0.85;
+uniform float darkness_threshold = 0.5; // brightness above which pixels aren't darkened
+
+
 float random(vec2 uv) {
     return fract(sin(dot(uv.xy, vec2(12.9898, 78.233))) * 43758.5453123);
 }
@@ -61,12 +65,34 @@ void fragment() {
 
     // Vignette
     color *= apply_vignette(uv);
+    // Base flicker
+    float flicker = 0.95 + 0.05 * sin(time * 4.0);
 
-    // Slight flicker / brightness variation
-    color *= 0.95 + 0.05 * sin(time * 4.0);
+    // Apply vignette early, but don't over-darken
+    float vignette = apply_vignette(uv);
+    color *= mix(1.0, vignette, vignette_strength * 0.6); // gentle vignette
 
-    // Tone curve (mild filmic look)
-    color = pow(color, vec3(0.9));
+    // Add flicker + darken gently
+    color *= flicker;
 
+    // Apply a mild tone curve (but not gamma crushing)
+    color = pow(color, vec3(0.95));
+
+    // ✅ Soft clamp only extreme highlights
+    vec3 soft_clamp = color / (color + vec3(0.8));
+
+    // Blend between original and clamped, depending on how bright the pixel is
+    float intensity = dot(color, vec3(0.2126, 0.7152, 0.0722)); // perceived brightness
+    float blend = smoothstep(1.0, 2.5, intensity); // only affects really bright pixels
+    color = mix(color, soft_clamp, blend);
+
+    // Compute brightness again if needed (already available above)
+    float brightness = intensity; // dot(color, vec3(0.2126, 0.7152, 0.0722));
+
+    float dark_blend = smoothstep(0.0, darkness_threshold, intensity);
+    color = mix(color * darkness, color, dark_blend);
+
+
+    // Done
     COLOR = vec4(color, 1.0);
 }

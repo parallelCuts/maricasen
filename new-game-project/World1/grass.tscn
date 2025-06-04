@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwoty6fvo07lp"]
+
+[ext_resource type="Texture2D" uid="uid://b2mpfhgh7fl3q" path="res://Low_Animations/deco_pack_1.png" id="1_kl2qe"]
+[ext_resource type="Shader" uid="uid://c44bf7osdbxpu" path="res://World1/grass.gdshader" id="1_q8vxl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kofb0"]
+shader = ExtResource("1_q8vxl")
+shader_parameter/strength = 1.0
+shader_parameter/base_speed = 1.0
+shader_parameter/frequency = 1.0
+shader_parameter/tile_width = 32.0
+shader_parameter/tile_height = 32.0
+shader_parameter/gust_strength = 1.5
+shader_parameter/gust_speed = 0.5
+shader_parameter/phase_offset_scale = 2.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2oqq"]
+texture = ExtResource("1_kl2qe")
+0:0/size_in_atlas = Vector2i(3, 3)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 8)
+3:1/size_in_atlas = Vector2i(3, 2)
+3:1/0 = 0
+6:0/size_in_atlas = Vector2i(3, 3)
+6:0/0 = 0
+6:0/0/texture_origin = Vector2i(0, 8)
+3:3/size_in_atlas = Vector2i(3, 3)
+3:3/0 = 0
+3:3/0/texture_origin = Vector2i(0, 8)
+6:3/size_in_atlas = Vector2i(3, 3)
+6:3/0 = 0
+6:3/0/texture_origin = Vector2i(0, 8)
+0:4/size_in_atlas = Vector2i(3, 2)
+0:4/0 = 0
+0:7/size_in_atlas = Vector2i(3, 2)
+0:7/0 = 0
+4:7/size_in_atlas = Vector2i(1, 2)
+4:7/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_odp38"]
+sources/0 = SubResource("TileSetAtlasSource_h2oqq")
+
+[node name="Grass" type="TileMapLayer"]
+material = SubResource("ShaderMaterial_kofb0")
+tile_set = SubResource("TileSet_odp38")
