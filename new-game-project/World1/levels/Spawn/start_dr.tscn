@@ -21,11 +21,9 @@ scale = Vector2(10, 10)
 tile_map_data = PackedByteArray("AAD7/wEAAAAGAAAAAAD8/wEAAAADAAEAABA=")
 
 [node name="Solids" parent="Ground" instance=ExtResource("5_8vuve")]
-scale = Vector2(1, 1)
 tile_map_data = PackedByteArray("AAAEAAEAAAADAAMAAAALAAEAAAAGAAMAAAA=")
 
 [node name="Grass" parent="Ground" instance=ExtResource("7_x1i45")]
-scale = Vector2(1, 1)
 tile_map_data = PackedByteArray("AAD7/wEAAAAEAAcAAAD8/wEAAAAEAAcAAAD9/wEAAAAEAAcAAAD+/wEAAAAEAAcAAAACAAEAAAAEAAcAAAADAAEAAAAEAAcAAAAFAAEAAAAEAAcAAAAGAAEAAAAEAAcAAAAKAAEAAAAEAAcAAAALAAEAAAAEAAcAAAANAAEAAAAEAAcAAAAOAAEAAAAEAAcAAAAPAAEAAAAEAAcAAAA=")
 
 [node name="1GroundTilemap" parent="Ground" instance=ExtResource("5_21lyw")]
