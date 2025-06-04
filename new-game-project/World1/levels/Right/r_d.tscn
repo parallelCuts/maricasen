@@ -1,26 +1,16 @@
-[gd_scene load_steps=11 format=4 uid="uid://dbbc436j5fv77"]
+[gd_scene load_steps=9 format=4 uid="uid://dbbc436j5fv77"]
 
 [ext_resource type="Script" uid="uid://dfrivqfe74jq7" path="res://enemyConnect.gd" id="1_k2p33"]
-[ext_resource type="Script" uid="uid://n21y7n42iii1" path="res://healthbar.gd" id="2_e1mdq"]
-[ext_resource type="PackedScene" uid="uid://dumb82v6peu8c" path="res://player_body.tscn" id="3_wtyk2"]
-[ext_resource type="PackedScene" uid="uid://bd8m4hh2jd18y" path="res://ui.tscn" id="4_bkdox"]
 [ext_resource type="PackedScene" uid="uid://dlror28pqylhx" path="res://World1/1_ground_tilemap.tscn" id="5_p6roq"]
 [ext_resource type="PackedScene" uid="uid://c2i4o5jscvebg" path="res://World1/enemies/stickler.tscn" id="5_qcf73"]
 [ext_resource type="PackedScene" uid="uid://bcjwc4itp2kpo" path="res://World1/door.tscn" id="6_6s0rq"]
 [ext_resource type="PackedScene" uid="uid://d384ym83iusr8" path="res://World1/bulaklak.tscn" id="6_phbfc"]
 [ext_resource type="PackedScene" uid="uid://daheglol1bw8" path="res://World1/solids.tscn" id="7_ehlwp"]
+[ext_resource type="PackedScene" uid="uid://bbgasx6e1tgbp" path="res://player_group.tscn" id="8_ds31h"]
 [ext_resource type="PackedScene" uid="uid://cwoty6fvo07lp" path="res://World1/grass.tscn" id="8_wg7nu"]
 
 [node name="r_d" type="Node2D"]
 script = ExtResource("1_k2p33")
-
-[node name="PlayerGroup" type="Node2D" parent="."]
-script = ExtResource("2_e1mdq")
-
-[node name="PlayerBody" parent="PlayerGroup" instance=ExtResource("3_wtyk2")]
-position = Vector2(0, 206)
-
-[node name="UI" parent="PlayerGroup" instance=ExtResource("4_bkdox")]
 
 [node name="EnemyGroup" type="Node2D" parent="."]
 
@@ -54,3 +44,6 @@ assigned = Vector2(0, 1)
 [node name="LeftDoor" parent="Ground" instance=ExtResource("6_6s0rq")]
 position = Vector2(-100, 5.6)
 assigned = Vector2(-1, 0)
+
+[node name="PlayerGroup" parent="." instance=ExtResource("8_ds31h")]
+position = Vector2(-712, 24)

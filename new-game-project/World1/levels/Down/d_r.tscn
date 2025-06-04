@@ -35,15 +35,12 @@ z_index = -2
 scale = Vector2(10, 10)
 
 [node name="Bulaklak" parent="Ground" instance=ExtResource("6_61m6l")]
-scale = Vector2(1, 1)
 tile_map_data = PackedByteArray("AAANAAgAAAAAAAAAAAD//wIAAAAGAAAAABA=")
 
 [node name="Solids" parent="Ground" instance=ExtResource("7_k1six")]
-scale = Vector2(1, 1)
 tile_map_data = PackedByteArray("AAAEAAgAAAAAAAQAAAD+/wgAAAAGAAMAAAAIAAgAAAADAAMAAAA=")
 
 [node name="Grass" parent="Ground" instance=ExtResource("8_mg224")]
-scale = Vector2(1, 1)
 tile_map_data = PackedByteArray("AAD+/wIAAAAEAAcAAAD//wIAAAAEAAcAAAABAAIAAAAEAAcAAAD6/wgAAAAEAAcAAAD7/wgAAAAEAAcAAAD8/wgAAAAEAAcAAAD9/wgAAAAEAAcAAAD//wgAAAAEAAcAAAAAAAgAAAAEAAcAAAABAAgAAAAEAAcAAAADAAgAAAAEAAcAAAAGAAgAAAAEAAcAAAAHAAgAAAAEAAcAAAAIAAgAAAAEAAcAAAAKAAgAAAAEAAcAAAALAAgAAAAEAAcAAAAMAAgAAAAEAAcAAAAPAAgAAAAEAAcAAAAOAAgAAAAEAAcAAAAQAAgAAAAEAAcAAAASAAgAAAAEAAcAAAA=")
 
 [node name="1GroundTilemap" parent="Ground" instance=ExtResource("5_pa4fv")]

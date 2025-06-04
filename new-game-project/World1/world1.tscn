@@ -1,19 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://ba2y5e0af2553"]
 
 [ext_resource type="Script" uid="uid://ct433s1xbjvib" path="res://generateDungeon.gd" id="1_xvgw5"]
-[ext_resource type="AudioStream" uid="uid://caof8dty6spy0" path="res://OST/In The Overgrowth.mp3" id="3_800qk"]
+[ext_resource type="AudioStream" uid="uid://dlpaoxvk5gqm2" path="res://OST/Overgrowth.mp3" id="3_800qk"]
 [ext_resource type="Shader" uid="uid://wfqojcgwiiby" path="res://World1/fancy.gdshader" id="3_pkque"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_800qk"]
 shader = ExtResource("3_pkque")
 shader_parameter/time = 0.0
 shader_parameter/resolution = Vector2(1920, 1080)
-shader_parameter/chroma_strength = 0.7
-shader_parameter/vignette_strength = 0.7
-shader_parameter/bloom_strength = 0.8
-shader_parameter/noise_strength = 0.05
-shader_parameter/darkness = 0.1
-shader_parameter/darkness_threshold = 0.7
+shader_parameter/chroma_strength = 1.5
+shader_parameter/vignette_strength = 0.3
+shader_parameter/bloom_strength = 0.2
+shader_parameter/noise_strength = 0.03
 
 [node name="World1" type="Node2D"]
 script = ExtResource("1_xvgw5")

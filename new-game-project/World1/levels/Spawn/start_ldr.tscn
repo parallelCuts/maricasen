@@ -1,25 +1,15 @@
-[gd_scene load_steps=10 format=4 uid="uid://dd1wd7r6c26pe"]
+[gd_scene load_steps=8 format=4 uid="uid://dd1wd7r6c26pe"]
 
 [ext_resource type="Script" uid="uid://dfrivqfe74jq7" path="res://enemyConnect.gd" id="1_xfq5s"]
-[ext_resource type="Script" uid="uid://n21y7n42iii1" path="res://healthbar.gd" id="2_q1lfh"]
-[ext_resource type="PackedScene" uid="uid://dumb82v6peu8c" path="res://player_body.tscn" id="3_4oes5"]
-[ext_resource type="PackedScene" uid="uid://bd8m4hh2jd18y" path="res://ui.tscn" id="4_7b3tt"]
 [ext_resource type="PackedScene" uid="uid://dlror28pqylhx" path="res://World1/1_ground_tilemap.tscn" id="5_5ov21"]
 [ext_resource type="PackedScene" uid="uid://d384ym83iusr8" path="res://World1/bulaklak.tscn" id="5_7b3tt"]
 [ext_resource type="PackedScene" uid="uid://bcjwc4itp2kpo" path="res://World1/door.tscn" id="6_t4g8f"]
 [ext_resource type="PackedScene" uid="uid://daheglol1bw8" path="res://World1/solids.tscn" id="7_5ov21"]
+[ext_resource type="PackedScene" uid="uid://bbgasx6e1tgbp" path="res://player_group.tscn" id="7_q1lfh"]
 [ext_resource type="PackedScene" uid="uid://cwoty6fvo07lp" path="res://World1/grass.tscn" id="8_t4g8f"]
 
 [node name="start_ldr" type="Node2D"]
 script = ExtResource("1_xfq5s")
-
-[node name="PlayerGroup" type="Node2D" parent="."]
-script = ExtResource("2_q1lfh")
-
-[node name="PlayerBody" parent="PlayerGroup" instance=ExtResource("3_4oes5")]
-position = Vector2(0, 206)
-
-[node name="UI" parent="PlayerGroup" instance=ExtResource("4_7b3tt")]
 
 [node name="EnemyGroup" type="Node2D" parent="."]
 
@@ -31,11 +21,9 @@ scale = Vector2(10, 10)
 tile_map_data = PackedByteArray("AAD9/wEAAAAAAAAAABAFAAEAAAAGAAAAAAD4/wEAAAADAAEAAAA=")
 
 [node name="Solids" parent="Ground" instance=ExtResource("7_5ov21")]
-scale = Vector2(1, 1)
 tile_map_data = PackedByteArray("AAD6/wEAAAADAAMAAAAQAAEAAAAGAAMAAAALAAEAAAAAAAQAAAA=")
 
 [node name="Grass" parent="Ground" instance=ExtResource("8_t4g8f")]
-scale = Vector2(1, 1)
 tile_map_data = PackedByteArray("AAD2/wEAAAAEAAcAAAD3/wEAAAAEAAcAAAD4/wEAAAAEAAcAAADz/wEAAAAEAAcAAAD8/wEAAAAEAAcAAAD9/wEAAAAEAAcAAAD//wEAAAAEAAcAAAAEAAEAAAAEAAcAAAAFAAEAAAAEAAcAAAADAAEAAAAEAAcAAAAOAAEAAAAEAAcAAAAPAAEAAAAEAAcAAAARAAEAAAAEAAcAAAA=")
 
 [node name="1GroundTilemap" parent="Ground" instance=ExtResource("5_5ov21")]
@@ -53,3 +41,6 @@ assigned = Vector2(1, 0)
 position = Vector2(138.4, 260.8)
 rotation = 1.5708
 assigned = Vector2(0, 1)
+
+[node name="PlayerGroup" parent="." instance=ExtResource("7_q1lfh")]
+position = Vector2(-24, 48)

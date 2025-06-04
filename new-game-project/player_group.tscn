@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbgasx6e1tgbp"]
+
+[ext_resource type="Script" uid="uid://n21y7n42iii1" path="res://healthbar.gd" id="1_yt2o6"]
+[ext_resource type="PackedScene" uid="uid://dumb82v6peu8c" path="res://player_body.tscn" id="2_xdjqm"]
+[ext_resource type="PackedScene" uid="uid://bd8m4hh2jd18y" path="res://ui.tscn" id="3_4qi8q"]
+
+[node name="PlayerGroup" type="Node2D"]
+script = ExtResource("1_yt2o6")
+
+[node name="PlayerBody" parent="." instance=ExtResource("2_xdjqm")]
+position = Vector2(0, 206)
+
+[node name="UI" parent="." instance=ExtResource("3_4qi8q")]
