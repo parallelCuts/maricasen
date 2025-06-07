@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6wjr33dokm83"]
+
+[ext_resource type="Texture2D" uid="uid://d04nqk5bokaf5" path="res://Low_Animations/particle.png" id="1_r63bp"]
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+amount = 30
+texture = ExtResource("1_r63bp")
+lifetime = 0.9
+explosiveness = 0.8
+randomness = 1.0
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0

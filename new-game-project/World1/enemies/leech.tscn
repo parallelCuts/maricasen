@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://bh02me1t2hj1y"]
+[gd_scene load_steps=27 format=3 uid="uid://bh02me1t2hj1y"]
 
 [ext_resource type="Script" uid="uid://dwvpcpd3lwes1" path="res://leechStateMachine.gd" id="1_cq6dk"]
 [ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_ti7ur"]
 [ext_resource type="Texture2D" uid="uid://cs1rrfky4ihpn" path="res://Low_Animations/leech.png" id="3_j7bkv"]
 [ext_resource type="Texture2D" uid="uid://de55pxvbci7vc" path="res://Low_Animations/tongue.png" id="4_04v4q"]
 [ext_resource type="Texture2D" uid="uid://dfosj43vcjwsv" path="res://Low_Animations/leech_death.png" id="5_ti7ur"]
+[ext_resource type="AudioStream" uid="uid://cnt6i536yscpx" path="res://SFX/LeechLick.wav" id="6_uy6r7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w6ipx"]
 shader = ExtResource("2_ti7ur")
@@ -875,5 +876,9 @@ root_node = NodePath("../Head")
 libraries = {
 &"": SubResource("AnimationLibrary_v11rr")
 }
+
+[node name="LickSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_uy6r7")
+volume_db = 10.0
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

@@ -31,6 +31,8 @@ var isDead = false
 
 var hurtTime = 0
 
+@onready var strikeSFX = $StrikeSFX
+
 func _ready() -> void:
 	sprite.material = sprite.material.duplicate()
 	mat = sprite.material
@@ -110,6 +112,8 @@ func _physics_process(delta):
 					sprite.flip_h = false
 					pike_sprite.flip_h = false
 					pike_anim.play("attack_right")
+				strikeSFX.pitch_scale = randf_range(0.3, 1.7)
+				strikeSFX.play(0.0)
 				attackTimer = 1
 		move_and_slide()
 

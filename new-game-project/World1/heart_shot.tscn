@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://wj3tm0ft3388"]
+
+[ext_resource type="Script" uid="uid://xkesbl6onac6" path="res://World1/heart_shot.gd" id="1_ebrxg"]
+[ext_resource type="Texture2D" uid="uid://jyj47oikxg8w" path="res://Low_Animations/heart_shot.png" id="2_7bl3k"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_14xfb"]
+radius = 2.8
+height = 14.2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hdep8"]
+radius = 2.8
+height = 14.2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1deif"]
+radius = 4.1
+height = 19.4
+
+[node name="Heart_Shot" type="CharacterBody2D"]
+scale = Vector2(10, 10)
+collision_layer = 4
+collision_mask = 131
+script = ExtResource("1_ebrxg")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_7bl3k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_14xfb")
+
+[node name="CheckCollision" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckCollision"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_hdep8")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1deif")
+
+[connection signal="body_entered" from="CheckCollision" to="." method="_on_check_collision_body_entered"]

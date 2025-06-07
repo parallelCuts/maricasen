@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dumb82v6peu8c"]
+[gd_scene load_steps=38 format=3 uid="uid://dumb82v6peu8c"]
 
 [ext_resource type="Script" uid="uid://drfkp1ai58dc5" path="res://movement.gd" id="1_kx4q5"]
 [ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_ly6kn"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://b1ip5kw11hkky" path="res://SFX/ParrySpark.wav" id="12_wh7ba"]
 [ext_resource type="AudioStream" uid="uid://bfhu1tfe1sjm0" path="res://SFX/Slash.wav" id="13_mh846"]
 [ext_resource type="AudioStream" uid="uid://mxiw4t2ejoo" path="res://SFX/Parry.wav" id="14_wh7ba"]
+[ext_resource type="AudioStream" uid="uid://e221yy1u6bcr" path="res://SFX/Walk.wav" id="15_wh7ba"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ni31j"]
 shader = ExtResource("2_ly6kn")
@@ -962,6 +963,12 @@ stream = ExtResource("13_mh846")
 
 [node name="ParrySFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_wh7ba")
+
+[node name="WalkSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_wh7ba")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
 
 [connection signal="area_entered" from="Attack/Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

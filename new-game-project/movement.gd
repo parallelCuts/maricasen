@@ -46,6 +46,9 @@ var parryTimer = 0
 @onready var parrySparkSFX = $ParrySparkSFX
 @onready var slashSFX = $SlashSFX
 @onready var parrySFX = $ParrySFX
+@onready var walkSFX = $WalkSFX
+
+var wsfxTimer = 0
 
 func _process(delta):
 	if flash_timer > 0.0:
@@ -74,6 +77,12 @@ func _physics_process(delta):
 	elif velocity.x > 0:
 		sprite.flip_h = false
 	if velocity.x != 0 and is_on_floor():
+		if not walkSFX.playing and wsfxTimer <= 0:
+			wsfxTimer = randf_range(0.5, 0.7)
+			walkSFX.pitch_scale = randf_range(0.3, 1.7)
+			walkSFX.play(0.0)
+		else:
+			wsfxTimer -= delta
 		anim.play("run")
 	elif is_on_floor():
 		anim.play("idle")
@@ -153,7 +162,7 @@ func _physics_process(delta):
 			attack_anim.play("parry_left")
 		else:
 			attack_anim.play("parry_right")
-		parryTimer = 0.4
+		parryTimer = 0.7
 	move_and_slide()
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:

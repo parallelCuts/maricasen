@@ -33,7 +33,7 @@ class room:
 		position = p
 
 func _on_viewport_size_changed() -> void:
-	var base_res = Vector2(1920, 1080) / 1.5
+	var base_res = Vector2(1920, 1080)
 	sv.size = base_res
 	var window_size = Vector2(DisplayServer.window_get_size())
 	var scale_factor = min(window_size.x / base_res.x, window_size.y / base_res.y)
@@ -94,6 +94,31 @@ func _ready() -> void:
 			dungeonArray[position.y][position.x] = r
 			dungeonVisualizer[position.y][position.x] = 1
 			i += 1
+		elif i == numOfRooms - 1:
+			var rm = roomQueue[randi_range(0, roomQueue.size() - 1)]
+			var op = rm.openings[randi_range(0, rm.openings.size() - 1)]
+			match op:
+				"left":
+					if rm.position.x - 1 < 0 or dungeonArray[rm.position.y][rm.position.x - 1] != null:
+						continue
+					rm.left = true
+					position = Vector2(rm.position.x - 1, rm.position.y)
+				"down":
+					if rm.position.y + 1 >= length or dungeonArray[rm.position.y + 1][rm.position.x] != null:
+						continue
+					rm.down = true
+					position = Vector2(rm.position.x, rm.position.y + 1)
+				"right":
+					if rm.position.x + 1 >= length or dungeonArray[rm.position.y][rm.position.x + 1] != null:
+						continue
+					rm.right = true
+					position = Vector2(rm.position.x + 1, rm.position.y)
+					
+			var r = room.new([], op, position)
+			dungeonArray[position.y][position.x] = r
+			dungeonVisualizer[position.y][position.x] = 3 if i == numOfRooms - 1 else 2
+			i += 1
+			pastPlayerPos = playerPos
 		else:
 			var rm = roomQueue[randi_range(0, roomQueue.size() - 1)]
 			var op = rm.openings[randi_range(0, rm.openings.size() - 1)]
@@ -157,32 +182,39 @@ func roomChange():
 			"right":
 				reference += "r"
 	reference += ".tscn"
+	if dungeonVisualizer[playerPos.y][playerPos.x] == 3:
+		reference = "res://" + world + "/levels/Boss/boss_room.tscn"
 	print(reference)
 	var room = load(reference).instantiate()
-	for opening in r.openings:
-		match opening:
-			"left":
-				if r.left == true:
-					room.get_node("Ground/LeftDoor/AnimationPlayer").play("open")
-				else:
-					room.get_node("Ground/LeftDoor/AnimationPlayer").play("closed")
-			"down":
-				if r.down == true:
-					room.get_node("Ground/DownDoor/AnimationPlayer").play("open")
-				else:
-					room.get_node("Ground/DownDoor/AnimationPlayer").play("closed")
-			"right":
-				if r.right == true:
+	if dungeonVisualizer[playerPos.y][playerPos.x] == 3:
+		room.get_node("Ground/LeftDoor/AnimationPlayer").play("closed")
+		room.get_node("Ground/RightDoor/AnimationPlayer").play("closed")
+		room.get_node("Ground/UpDoor/AnimationPlayer").play("closed")
+	else:
+		for opening in r.openings:
+			match opening:
+				"left":
+					if r.left == true:
+						room.get_node("Ground/LeftDoor/AnimationPlayer").play("open")
+					else:
+						room.get_node("Ground/LeftDoor/AnimationPlayer").play("closed")
+				"down":
+					if r.down == true:
+						room.get_node("Ground/DownDoor/AnimationPlayer").play("open")
+					else:
+						room.get_node("Ground/DownDoor/AnimationPlayer").play("closed")
+				"right":
+					if r.right == true:
+						room.get_node("Ground/RightDoor/AnimationPlayer").play("open")
+					else:
+						room.get_node("Ground/RightDoor/AnimationPlayer").play("closed")
+			match r.entrance:
+				"left":
 					room.get_node("Ground/RightDoor/AnimationPlayer").play("open")
-				else:
-					room.get_node("Ground/RightDoor/AnimationPlayer").play("closed")
-		match r.entrance:
-			"left":
-				room.get_node("Ground/RightDoor/AnimationPlayer").play("open")
-			"right":
-				room.get_node("Ground/LeftDoor/AnimationPlayer").play("open")
-			"down":
-				room.get_node("Ground/UpDoor/AnimationPlayer").play("open")
+				"right":
+					room.get_node("Ground/LeftDoor/AnimationPlayer").play("open")
+				"down":
+					room.get_node("Ground/UpDoor/AnimationPlayer").play("open")
 	if counter == 0:
 		health = 100
 	counter += 1

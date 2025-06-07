@@ -28,6 +28,8 @@ var isDead = false
 
 var hurtTime = 0
 
+@onready var lickSFX = $LickSFX
+
 func _ready() -> void:
 	head.get_node("Sprite").material = head.get_node("Sprite").material.duplicate()
 	for part in body_parts:
@@ -91,6 +93,7 @@ func _physics_process(delta):
 			else:
 				tongue.look_at(player_position)
 				tongue_anim.play("lick")
+				lickSFX.play(0.0)
 				attackTimer = 1
 			for i in range(body_parts.size()):
 				body_parts[i].velocity = Vector2.ZERO

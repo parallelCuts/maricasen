@@ -25,6 +25,8 @@ var isDead = false
 
 var hurtTime = 0
 
+@onready var shootSFX = $ShootSFX
+
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
 
@@ -127,6 +129,7 @@ func _physics_process(delta: float) -> void:
 			if attackTimer > 0:
 				attackTimer -= delta
 			else:
+				shootSFX.play(0.0)
 				var a = preload("res://web.tscn").instantiate()
 				a.global_position = global_position
 				a.velocity = (player_position - global_position).normalized() * projSpeed

@@ -71,9 +71,9 @@ void fragment() {
 
     // — Soft‐clamp highlights
     vec3 soft_clamp = color / (color + vec3(0.8));
-    float intensity = dot(color, vec3(0.2126, 0.7152, 0.0722)); 
+    float intensity = dot(color, vec3(0.2126, 0.7152, 0.0722));
     float blend    = smoothstep(1.0, 2.5, intensity);
     color = mix(color, soft_clamp, blend);
-	
+
     COLOR = vec4(color, 1.0);
 }

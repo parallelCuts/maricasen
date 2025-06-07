@@ -31,6 +31,7 @@ stretch_mode = 5
 
 [node name="SubViewport" type="SubViewport" parent="."]
 canvas_item_default_texture_filter = 0
+audio_listener_enable_2d = true
 
 [node name="OSTPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_800qk")

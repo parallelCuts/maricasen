@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://dsj5begxe6788"]
+[gd_scene load_steps=17 format=3 uid="uid://dsj5begxe6788"]
 
 [ext_resource type="Script" uid="uid://blflwahtrp7xq" path="res://spiderStateMachine.gd" id="1_n5u3y"]
 [ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_axe26"]
 [ext_resource type="Texture2D" uid="uid://d2hwvut4dsfor" path="res://Low_Animations/spider_walk.png" id="3_lp0j7"]
 [ext_resource type="Texture2D" uid="uid://likbhnr2su5u" path="res://Low_Animations/spider_jump.png" id="4_cqt7y"]
 [ext_resource type="Texture2D" uid="uid://45qxfn1r3yg4" path="res://Low_Animations/spider_death.png" id="5_axe26"]
+[ext_resource type="AudioStream" uid="uid://14v455k1aa62" path="res://SFX/SpiderShoot.wav" id="6_elwji"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vivtl"]
 shader = ExtResource("2_axe26")
@@ -334,5 +335,9 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_binfs")
+
+[node name="ShootSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_elwji")
+volume_db = 10.0
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://c2i4o5jscvebg"]
+[gd_scene load_steps=22 format=3 uid="uid://c2i4o5jscvebg"]
 
 [ext_resource type="Script" uid="uid://03gwt3q2n3to" path="res://sticklerStateMachine.gd" id="1_e3e5t"]
 [ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_8yrx1"]
 [ext_resource type="Texture2D" uid="uid://td8l5qnpkm2j" path="res://Low_Animations/stickler_run.png" id="3_n6mrh"]
 [ext_resource type="Texture2D" uid="uid://qfbufn1k8n75" path="res://Low_Animations/stickler_death.png" id="4_8yrx1"]
 [ext_resource type="Texture2D" uid="uid://djy5fd4etib2x" path="res://Low_Animations/stickler_weapon.png" id="4_kilit"]
+[ext_resource type="AudioStream" uid="uid://1gdvrqxoom1e" path="res://SFX/SticklerStrike.wav" id="6_xvwo6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xlvrw"]
 shader = ExtResource("2_8yrx1")
@@ -522,7 +523,9 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape2D_fkp5k")
 
-[node name="Sprite2D" type="Sprite2D" parent="Hurtbox"]
+[node name="StrikeSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_xvwo6")
+volume_db = 10.0
 
 [connection signal="body_entered" from="Vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="Vision" to="." method="_on_vision_body_exited"]
