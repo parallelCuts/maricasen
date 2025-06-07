@@ -184,6 +184,9 @@ func roomChange():
 	reference += ".tscn"
 	if dungeonVisualizer[playerPos.y][playerPos.x] == 3:
 		reference = "res://" + world + "/levels/Boss/boss_room.tscn"
+		ostPlayer.stream = preload("res://OST/Heart of Roses.mp3")
+		ostPlayer.volume_db = 7.5
+		ostPlayer.play(0.0)
 	print(reference)
 	var room = load(reference).instantiate()
 	if dungeonVisualizer[playerPos.y][playerPos.x] == 3:

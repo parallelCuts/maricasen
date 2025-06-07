@@ -141,6 +141,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			var b = preload("res://World1/heart_shot.tscn").instantiate()
 			b.global_position = global_position + Vector2(0, 550)
 			b.velocity = Vector2.LEFT * projSpeed
+			b.get_node("Sprite").flip_h = true
 			get_parent().add_child(b)
 		anim.play("rise")
 	if anim_name == "rise":
