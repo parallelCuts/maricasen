@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var mat = sprite.material
 @onready var anim = $AnimationPlayer
 
-@export var health = 300
+@export var health = 500
 
 var flash_timer := 0.0
 const FLASH_DURATION := 0.5
@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 	
 	if not isDead:
 		pass
-		if health > 200:
+		if health > 400:
 			if inVision:
 				if dropTimer <= 0:
 					dropTimer = randf_range(0.2, 0.5)
@@ -64,7 +64,7 @@ func _physics_process(delta: float) -> void:
 					velocity.x = -speed
 			else:
 				moveTimer -= delta
-		elif health > 100:
+		elif health > 300:
 			if inVision:
 				if dropTimer <= 0:
 					dropTimer = randf_range(0.2, 0.5)
@@ -133,7 +133,7 @@ func _on_vision_body_exited(body: Node2D) -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "drop":
-		if health <= 100:
+		if health <= 300:
 			var a = preload("res://World1/heart_shot.tscn").instantiate()
 			a.global_position = global_position + Vector2(0, 550)
 			a.velocity = Vector2.RIGHT * projSpeed
