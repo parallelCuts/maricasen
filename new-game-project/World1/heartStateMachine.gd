@@ -24,7 +24,7 @@ var dropTimer = randf_range(0.5, 1.25)
 @onready var vessels_anim = $Vessels/AnimationPlayer
 @onready var blood_anim = $Blood/AnimationPlayer
 
-@export var projSpeed = 600
+@export var projSpeed = 1000
 
 func _ready() -> void:
 	sprite.material = sprite.material.duplicate()

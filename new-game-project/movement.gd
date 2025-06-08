@@ -49,6 +49,7 @@ var parryTimer = 0
 @onready var walkSFX = $WalkSFX
 
 var wsfxTimer = 0
+var parryCount = 1
 
 func _process(delta):
 	if flash_timer > 0.0:
@@ -135,10 +136,11 @@ func _physics_process(delta):
 	if takeDmg == true:
 		if takeDmgTimer < 0:
 			takeDmgTimer = 0.5
-			if ((attack_anim.current_animation == "parry_right" or attack_anim.current_animation == "parry_left") and attack_anim.is_playing()) or parryTimer > 0:
+			if (((attack_anim.current_animation == "parry_right" or attack_anim.current_animation == "parry_left") and attack_anim.is_playing()) or parryTimer > 0) and parryCount > 0:
 				parrySparkSFX.play(0.0)
 				camAnim.play("parry")
 				parry_anim.play("parry_spark")
+				parryCount -= 1
 				take_damage(0)
 			else:
 				hurtSFX.play(0.0)
@@ -155,6 +157,7 @@ func _physics_process(delta):
 			takeDmgTimer -= delta
 	parryTimer -= delta
 	if Input.is_action_just_pressed("parry"):
+		parryCount = 1
 		if attack_anim.is_playing() == false:
 			parrySFX.pitch_scale = randf_range(0.7, 1.3)
 			parrySFX.play(0.0)
