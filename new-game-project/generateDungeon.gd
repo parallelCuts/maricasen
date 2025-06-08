@@ -95,8 +95,8 @@ func _ready() -> void:
 			dungeonVisualizer[position.y][position.x] = 1
 			i += 1
 		elif i == numOfRooms - 1:
-			var rm = roomQueue[randi_range(0, roomQueue.size() - 1)]
-			var op = rm.openings[randi_range(0, rm.openings.size() - 1)]
+			var rm = roomQueue[randi_range(0, (roomQueue.size() - 1))]
+			var op = rm.openings[randi_range(0, (rm.openings.size() - 1))]
 			match op:
 				"left":
 					if rm.position.x - 1 < 0 or dungeonArray[rm.position.y][rm.position.x - 1] != null:
@@ -120,8 +120,8 @@ func _ready() -> void:
 			i += 1
 			pastPlayerPos = playerPos
 		else:
-			var rm = roomQueue[randi_range(0, roomQueue.size() - 1)]
-			var op = rm.openings[randi_range(0, rm.openings.size() - 1)]
+			var rm = roomQueue[randi_range(0, (roomQueue.size() - 1))]
+			var op = rm.openings[randi_range(0, (rm.openings.size() - 1))]
 			match op:
 				"left":
 					if rm.position.x - 1 < 0 or dungeonArray[rm.position.y][rm.position.x - 1] != null:
@@ -185,7 +185,6 @@ func roomChange():
 	if dungeonVisualizer[playerPos.y][playerPos.x] == 3:
 		reference = "res://" + world + "/levels/Boss/boss_room.tscn"
 		ostPlayer.stream = preload("res://OST/Heart of Roses.mp3")
-		ostPlayer.volume_db = 7.5
 		ostPlayer.play(0.0)
 	print(reference)
 	var room = load(reference).instantiate()

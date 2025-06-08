@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dfrivqfe74jq7" path="res://enemyConnect.gd" id="1_4i8cr"]
 [ext_resource type="Script" uid="uid://n21y7n42iii1" path="res://healthbar.gd" id="2_385rv"]
-[ext_resource type="PackedScene" uid="uid://dumb82v6peu8c" path="res://player_body.tscn" id="3_skwaa"]
+[ext_resource type="PackedScene" uid="uid://dumb82v6peu8c" path="res://Low_Animations/player_body.tscn" id="3_skwaa"]
 [ext_resource type="PackedScene" uid="uid://bd8m4hh2jd18y" path="res://ui.tscn" id="4_78jq6"]
 [ext_resource type="PackedScene" uid="uid://bh02me1t2hj1y" path="res://World1/enemies/leech.tscn" id="5_p4ong"]
 [ext_resource type="PackedScene" uid="uid://dlror28pqylhx" path="res://World1/1_ground_tilemap.tscn" id="5_pa4fv"]

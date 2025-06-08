@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://bp10uwvem8xv7"]
+[gd_scene load_steps=25 format=3 uid="uid://bp10uwvem8xv7"]
 
 [ext_resource type="Texture2D" uid="uid://c2y1ymisbf5vq" path="res://Low_Animations/heart_lift.png" id="1_blit4"]
 [ext_resource type="Script" uid="uid://b103axpyrve7w" path="res://World1/heartStateMachine.gd" id="1_dp4nl"]
 [ext_resource type="Shader" uid="uid://ci4176chp4yuj" path="res://hurt.gdshader" id="2_8tskp"]
 [ext_resource type="Texture2D" uid="uid://m5wc4kelo4oq" path="res://Low_Animations/blood_vessels.png" id="4_nvehm"]
 [ext_resource type="Texture2D" uid="uid://cbhjlxl0u50ay" path="res://Low_Animations/blood_texture.png" id="5_efp3m"]
+[ext_resource type="Shader" uid="uid://rtxitr0np7ts" path="res://World1/blood.gdshader" id="5_na4jb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nvehm"]
 shader = ExtResource("2_8tskp")
@@ -512,6 +513,12 @@ _data = {
 radius = 66.0
 height = 1324.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w305y"]
+shader = ExtResource("5_na4jb")
+shader_parameter/amplitude = 5.0
+shader_parameter/frequency = 5.0
+shader_parameter/speed = 5.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_na4jb"]
 size = Vector2(127, 115)
 
@@ -616,6 +623,7 @@ shape = SubResource("CapsuleShape2D_m3oet")
 disabled = true
 
 [node name="Blood" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_w305y")
 position = Vector2(0, 5000)
 scale = Vector2(100, 10)
 texture = ExtResource("5_efp3m")
