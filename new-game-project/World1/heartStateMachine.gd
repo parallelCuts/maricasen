@@ -55,7 +55,7 @@ func _physics_process(delta: float) -> void:
 					dropTimer = randf_range(0.2, 0.5)
 					anim.play("drop")
 				dropTimer -= delta
-			elif moveTimer <= 0:
+			elif moveTimer <= 0 and ((not anim.is_playing()) or anim.current_animation == "seek"):
 				anim.play("seek")
 				moveTimer = randf_range(1, 2)
 				if player_position.x > global_position.x:
@@ -70,7 +70,7 @@ func _physics_process(delta: float) -> void:
 					dropTimer = randf_range(0.2, 0.5)
 					anim.play("drop")
 				dropTimer -= delta
-			elif moveTimer <= 0:
+			elif moveTimer <= 0 and ((not anim.is_playing()) or anim.current_animation == "seek"):
 				rng = randi_range(0, 6)
 				anim.play("seek")
 				moveTimer = randf_range(1, 2)
@@ -92,7 +92,7 @@ func _physics_process(delta: float) -> void:
 					dropTimer = randf_range(0.2, 0.5)
 					anim.play("drop")
 				dropTimer -= delta
-			elif moveTimer <= 0:
+			elif moveTimer <= 0 and ((not anim.is_playing()) or anim.current_animation == "seek"):
 				rng = randi_range(0, 1)
 				anim.play("seek")
 				moveTimer = randf_range(1, 2)
@@ -144,5 +144,5 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			b.get_node("Sprite").flip_h = true
 			get_parent().add_child(b)
 		anim.play("rise")
-	if anim_name == "rise":
+	if anim_name == "rise" and inVision:
 		anim.play("drop")
