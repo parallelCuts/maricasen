@@ -15,10 +15,10 @@
 [ext_resource type="AudioStream" uid="uid://bfhu1tfe1sjm0" path="res://SFX/Slash.wav" id="13_m1lx5"]
 [ext_resource type="AudioStream" uid="uid://mxiw4t2ejoo" path="res://SFX/Parry.wav" id="14_w8r0k"]
 [ext_resource type="AudioStream" uid="uid://e221yy1u6bcr" path="res://SFX/Walk.wav" id="15_moodi"]
-[ext_resource type="Texture2D" uid="uid://nwcpmr38iemo" path="res://Low_Animations/world1BackBg.png" id="16_67kxq"]
-[ext_resource type="Texture2D" uid="uid://cvqxyu8qxmkj4" path="res://Low_Animations/world1MidBg.png" id="17_4lv5w"]
-[ext_resource type="Texture2D" uid="uid://dbacku1v4aaxf" path="res://Low_Animations/world1FrontBg.png" id="18_iygga"]
-[ext_resource type="Texture2D" uid="uid://t32j6jmbwnp2" path="res://Low_Animations/world1OverBg.png" id="19_s61bv"]
+[ext_resource type="Texture2D" uid="uid://nwcpmr38iemo" path="res://Low_Animations/world1BackBg.png" id="16_s61bv"]
+[ext_resource type="Texture2D" uid="uid://cvqxyu8qxmkj4" path="res://Low_Animations/world1MidBg.png" id="17_pngnr"]
+[ext_resource type="Texture2D" uid="uid://dbacku1v4aaxf" path="res://Low_Animations/world1FrontBg.png" id="18_5r0gq"]
+[ext_resource type="Texture2D" uid="uid://t32j6jmbwnp2" path="res://Low_Animations/world1OverBg.png" id="19_eetyi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ni31j"]
 shader = ExtResource("2_s61bv")
@@ -975,49 +975,43 @@ stream = ExtResource("15_moodi")
 current = true
 
 [node name="Back" type="Parallax2D" parent="."]
-z_index = -5
-scale = Vector2(40, 40)
-scroll_scale = Vector2(1, 2)
-scroll_offset = Vector2(0, -50)
+z_index = -10
+scale = Vector2(10, 10)
 repeat_size = Vector2(200, 0)
-autoscroll = Vector2(1, 0)
-repeat_times = 4
+repeat_times = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="Back"]
-texture = ExtResource("16_67kxq")
+texture = ExtResource("16_s61bv")
 
 [node name="Mid" type="Parallax2D" parent="."]
-z_index = -5
-scale = Vector2(40, 40)
-scroll_scale = Vector2(1.5, 2)
-scroll_offset = Vector2(0, -50)
+z_index = -9
+scale = Vector2(10, 10)
+scroll_scale = Vector2(1.5, 1)
 repeat_size = Vector2(200, 0)
-repeat_times = 4
+repeat_times = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="Mid"]
-texture = ExtResource("17_4lv5w")
+texture = ExtResource("17_pngnr")
 
 [node name="Front" type="Parallax2D" parent="."]
-z_index = -5
-scale = Vector2(40, 40)
-scroll_scale = Vector2(2, 2)
-scroll_offset = Vector2(0, -50)
+z_index = -8
+scale = Vector2(10, 10)
+scroll_scale = Vector2(2, 1)
 repeat_size = Vector2(200, 0)
-repeat_times = 4
+repeat_times = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="Front"]
-texture = ExtResource("18_iygga")
+texture = ExtResource("18_5r0gq")
 
 [node name="Overlay" type="Parallax2D" parent="."]
-z_index = -5
-scale = Vector2(40, 40)
-scroll_scale = Vector2(2, 2)
-scroll_offset = Vector2(0, -50)
+z_index = -7
+scale = Vector2(10, 10)
+scroll_scale = Vector2(2, 1)
 repeat_size = Vector2(200, 0)
-repeat_times = 4
+repeat_times = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="Overlay"]
-texture = ExtResource("19_s61bv")
+texture = ExtResource("19_eetyi")
 
 [connection signal="area_entered" from="Attack/Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

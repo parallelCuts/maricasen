@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bp10uwvem8xv7"]
+[gd_scene load_steps=29 format=3 uid="uid://bp10uwvem8xv7"]
 
 [ext_resource type="Texture2D" uid="uid://c2y1ymisbf5vq" path="res://Low_Animations/heart_lift.png" id="1_blit4"]
 [ext_resource type="Script" uid="uid://b103axpyrve7w" path="res://World1/heartStateMachine.gd" id="1_dp4nl"]
@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://m5wc4kelo4oq" path="res://Low_Animations/blood_vessels.png" id="4_nvehm"]
 [ext_resource type="Texture2D" uid="uid://cbhjlxl0u50ay" path="res://Low_Animations/blood_texture.png" id="5_efp3m"]
 [ext_resource type="Shader" uid="uid://rtxitr0np7ts" path="res://World1/blood.gdshader" id="5_na4jb"]
+[ext_resource type="AudioStream" uid="uid://clm3fkjd4tv3i" path="res://SFX/Rise.wav" id="7_ramvk"]
+[ext_resource type="AudioStream" uid="uid://du3bt0yqi5pqg" path="res://SFX/Drop.wav" id="8_m3oet"]
+[ext_resource type="AudioStream" uid="uid://cfpp62d2mx47b" path="res://SFX/Vessels.wav" id="9_tjef5"]
+[ext_resource type="AudioStream" uid="uid://dn5upliabkxso" path="res://SFX/Blood.wav" id="10_v78cc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nvehm"]
 shader = ExtResource("2_8tskp")
@@ -639,6 +643,22 @@ shape = SubResource("RectangleShape2D_na4jb")
 libraries = {
 &"": SubResource("AnimationLibrary_m3oet")
 }
+
+[node name="RiseSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ramvk")
+volume_db = 1.0
+
+[node name="DropSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_m3oet")
+volume_db = 1.0
+
+[node name="VesselsSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_tjef5")
+volume_db = 3.0
+
+[node name="BloodSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_v78cc")
+volume_db = 3.0
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

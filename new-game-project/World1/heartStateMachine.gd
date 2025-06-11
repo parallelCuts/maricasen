@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var mat = sprite.material
 @onready var anim = $AnimationPlayer
 
-@export var health = 500
+@export var health = 400
 
 var flash_timer := 0.0
 const FLASH_DURATION := 0.5
@@ -25,6 +25,11 @@ var dropTimer = randf_range(0.5, 1.25)
 @onready var blood_anim = $Blood/AnimationPlayer
 
 @export var projSpeed = 1000
+
+@onready var riseSFX = $RiseSFX
+@onready var dropSFX = $DropSFX
+@onready var vesselsSFX = $VesselsSFX
+@onready var bloodSFX = $BloodSFX
 
 func _ready() -> void:
 	sprite.material = sprite.material.duplicate()
@@ -49,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	
 	if not isDead:
 		pass
-		if health > 400:
+		if health > 300:
 			if inVision:
 				if dropTimer <= 0:
 					dropTimer = randf_range(0.2, 0.5)
@@ -64,7 +69,7 @@ func _physics_process(delta: float) -> void:
 					velocity.x = -speed
 			else:
 				moveTimer -= delta
-		elif health > 300:
+		elif health > 200:
 			if inVision:
 				if dropTimer <= 0:
 					dropTimer = randf_range(0.2, 0.5)
@@ -78,12 +83,15 @@ func _physics_process(delta: float) -> void:
 					velocity.x = speed
 					if rng == 0:
 						vessels_anim.play("vessels_right")
+						vesselsSFX.play(0.0)
 				else:
 					velocity.x = -speed
 					if rng == 0:
 						vessels_anim.play("vessels_left")
+						vesselsSFX.play(0.0)
 				if rng == 1:
 					blood_anim.play("bloodwave")
+					bloodSFX.play(0.0)
 			else:
 				moveTimer -= delta
 		else:
@@ -100,12 +108,15 @@ func _physics_process(delta: float) -> void:
 					velocity.x = speed
 					if rng == 0:
 						vessels_anim.play("vessels_right")
+						vesselsSFX.play(0.0)
 				else:
 					velocity.x = -speed
 					if rng == 0:
 						vessels_anim.play("vessels_left")
+						vesselsSFX.play(0.0)
 				if rng == 1:
 					blood_anim.play("bloodwave")
+					bloodSFX.play(0.0)
 			else:
 				moveTimer -= delta
 		move_and_slide()
@@ -133,16 +144,18 @@ func _on_vision_body_exited(body: Node2D) -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "drop":
-		if health <= 300:
+		if health <= 200:
 			var a = preload("res://World1/heart_shot.tscn").instantiate()
-			a.global_position = global_position + Vector2(0, 550)
+			a.global_position = global_position + Vector2(0, 500)
 			a.velocity = Vector2.RIGHT * projSpeed
 			get_parent().add_child(a)
 			var b = preload("res://World1/heart_shot.tscn").instantiate()
-			b.global_position = global_position + Vector2(0, 550)
+			b.global_position = global_position + Vector2(0, 500)
 			b.velocity = Vector2.LEFT * projSpeed
 			b.get_node("Sprite").flip_h = true
 			get_parent().add_child(b)
 		anim.play("rise")
+		dropSFX.play(0.0)
 	if anim_name == "rise" and inVision:
 		anim.play("drop")
+		riseSFX.play(0.0)
