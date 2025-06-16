@@ -30,6 +30,8 @@ var hurtTime = 0
 
 @onready var lickSFX = $LickSFX
 
+@onready var svAnim = get_parent().get_parent().get_parent().get_parent().get_node("AnimationPlayer")
+
 func _ready() -> void:
 	head.get_node("Sprite").material = head.get_node("Sprite").material.duplicate()
 	for part in body_parts:

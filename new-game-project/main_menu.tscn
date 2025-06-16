@@ -1,0 +1,102 @@
+[gd_scene load_steps=10 format=3 uid="uid://rtecmoeh0to5"]
+
+[ext_resource type="Texture2D" uid="uid://c4nmbcr6347e4" path="res://Low_Animations/menuBg.png" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://vnsegd7doak0" path="res://main_menu.gd" id="1_dy7ct"]
+[ext_resource type="Texture2D" uid="uid://cetf7510so70a" path="res://Low_Animations/play.png" id="2_fu7sn"]
+[ext_resource type="Texture2D" uid="uid://b6ut0cdiermoc" path="res://Low_Animations/quit.png" id="3_jix8l"]
+[ext_resource type="Script" uid="uid://bqgldv4cj4bqa" path="res://do_something_button.gd" id="3_nlkkf"]
+[ext_resource type="Texture2D" uid="uid://bw5kw1punap53" path="res://Low_Animations/logo.png" id="4_jix8l"]
+[ext_resource type="AudioStream" uid="uid://ch7lh1cswso8k" path="res://SFX/Click.wav" id="4_qe12f"]
+[ext_resource type="Script" uid="uid://bq82t82j8rvd6" path="res://quit.gd" id="6_qe12f"]
+[ext_resource type="AudioStream" uid="uid://yr1qv07hof7p" path="res://OST/Limbo.mp3" id="9_0o4t1"]
+
+[node name="Main Menu" type="Node2D"]
+script = ExtResource("1_dy7ct")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Start" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="UI/Start"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(7, 7)
+pivot_offset = Vector2(100, 50)
+texture = ExtResource("1_06t4h")
+
+[node name="Play" type="Button" parent="UI/Start"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 150.0
+offset_top = -20.0
+offset_right = 190.0
+offset_bottom = 20.0
+grow_vertical = 2
+scale = Vector2(5, 5)
+icon = ExtResource("2_fu7sn")
+script = ExtResource("3_nlkkf")
+scene = "res://World1/world1.tscn"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UI/Start/Play"]
+stream = ExtResource("4_qe12f")
+
+[node name="Quit" type="Button" parent="UI/Start"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -20.0
+offset_right = -150.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(5, 5)
+pivot_offset = Vector2(40, 0)
+icon = ExtResource("3_jix8l")
+script = ExtResource("6_qe12f")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UI/Start/Quit"]
+stream = ExtResource("4_qe12f")
+
+[node name="Logo" type="TextureRect" parent="UI/Start"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_right = 96.0
+offset_bottom = 96.0
+grow_horizontal = 2
+scale = Vector2(2.5, 2.5)
+pivot_offset = Vector2(96, -30)
+texture = ExtResource("4_jix8l")
+
+[node name="OST" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_0o4t1")
+parameters/looping = true
+
+[connection signal="button_up" from="UI/Start/Play" to="UI/Start/Play" method="_on_button_up"]
+[connection signal="finished" from="UI/Start/Play/AudioStreamPlayer" to="UI/Start/Play" method="_on_audio_stream_player_finished"]
+[connection signal="button_up" from="UI/Start/Quit" to="UI/Start/Quit" method="_on_button_up"]
+[connection signal="finished" from="UI/Start/Quit/AudioStreamPlayer" to="UI/Start/Quit" method="_on_audio_stream_player_finished"]

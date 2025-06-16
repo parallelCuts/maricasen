@@ -51,6 +51,8 @@ var parryTimer = 0
 var wsfxTimer = 0
 var parryCount = 1
 
+@onready var svAnim = get_parent().get_parent().get_parent().get_parent().get_node("AnimationPlayer")
+
 func _process(delta):
 	if flash_timer > 0.0:
 		flash_timer -= delta
@@ -67,6 +69,7 @@ func take_damage(damage):
 
 func _physics_process(delta):
 	if health <= 0:
+		svAnim.play("visible")
 		queue_free()
 	# Add gravity every frame
 	emit_signal("position_updated", global_position)

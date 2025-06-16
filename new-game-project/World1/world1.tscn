@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://ba2y5e0af2553"]
+[gd_scene load_steps=14 format=3 uid="uid://ba2y5e0af2553"]
 
 [ext_resource type="Script" uid="uid://ct433s1xbjvib" path="res://generateDungeon.gd" id="1_xvgw5"]
 [ext_resource type="AudioStream" uid="uid://dlpaoxvk5gqm2" path="res://OST/Overgrowth.mp3" id="3_800qk"]
 [ext_resource type="Shader" uid="uid://wfqojcgwiiby" path="res://World1/fancy.gdshader" id="3_pkque"]
+[ext_resource type="Texture2D" uid="uid://c4nmbcr6347e4" path="res://Low_Animations/menuBg.png" id="4_0gjxj"]
+[ext_resource type="Texture2D" uid="uid://cetf7510so70a" path="res://Low_Animations/play.png" id="5_p50h6"]
+[ext_resource type="Script" uid="uid://bqgldv4cj4bqa" path="res://do_something_button.gd" id="6_7xvjd"]
+[ext_resource type="AudioStream" uid="uid://ch7lh1cswso8k" path="res://SFX/Click.wav" id="7_wftm1"]
+[ext_resource type="Texture2D" uid="uid://b6ut0cdiermoc" path="res://Low_Animations/quit.png" id="8_kpehh"]
+[ext_resource type="Texture2D" uid="uid://bw5kw1punap53" path="res://Low_Animations/logo.png" id="10_l87d6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_800qk"]
 shader = ExtResource("3_pkque")
@@ -12,6 +18,140 @@ shader_parameter/chroma_strength = 1.5
 shader_parameter/vignette_strength = 0.3
 shader_parameter/bloom_strength = 0.2
 shader_parameter/noise_strength = 0.03
+
+[sub_resource type="Animation" id="Animation_wdv28"]
+resource_name = "visible"
+length = 0.500008
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Start:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Start/Background:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0833333, 0.500008),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.654902)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/Start/Play:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0833333, 0.500008),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/Start/Quit:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0833333, 0.500008),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/Start/Logo:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.0833333, 0.500008),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0gjxj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Start:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Start/Background:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/Start/Play:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/Start/Quit:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/Start/Logo:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p50h6"]
+_data = {
+&"RESET": SubResource("Animation_0gjxj"),
+&"visible": SubResource("Animation_wdv28")
+}
 
 [node name="World1" type="Node2D"]
 script = ExtResource("1_xvgw5")
@@ -37,3 +177,99 @@ audio_listener_enable_2d = true
 stream = ExtResource("3_800qk")
 autoplay = true
 parameters/looping = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Start" type="Control" parent="UI"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.0102812)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="UI/Start"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(7, 7)
+pivot_offset = Vector2(100, 50)
+texture = ExtResource("4_0gjxj")
+
+[node name="Play" type="Button" parent="UI/Start"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 150.0
+offset_top = -20.0
+offset_right = 190.0
+offset_bottom = 20.0
+grow_vertical = 2
+scale = Vector2(5, 5)
+icon = ExtResource("5_p50h6")
+script = ExtResource("6_7xvjd")
+scene = "res://World1/world1.tscn"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UI/Start/Play"]
+stream = ExtResource("7_wftm1")
+
+[node name="Quit" type="Button" parent="UI/Start"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -20.0
+offset_right = -150.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(5, 5)
+pivot_offset = Vector2(40, 0)
+icon = ExtResource("8_kpehh")
+script = ExtResource("6_7xvjd")
+scene = "res://main_menu.tscn"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UI/Start/Quit"]
+stream = ExtResource("7_wftm1")
+
+[node name="Logo" type="TextureRect" parent="UI/Start"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_right = 96.0
+offset_bottom = 96.0
+grow_horizontal = 2
+scale = Vector2(2.5, 2.5)
+pivot_offset = Vector2(96, -30)
+texture = ExtResource("10_l87d6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_p50h6")
+}
+
+[connection signal="button_up" from="UI/Start/Play" to="UI/Start/Play" method="_on_button_up"]
+[connection signal="finished" from="UI/Start/Play/AudioStreamPlayer" to="UI/Start/Play" method="_on_audio_stream_player_finished"]
+[connection signal="button_up" from="UI/Start/Quit" to="UI/Start/Quit" method="_on_button_up"]
+[connection signal="finished" from="UI/Start/Quit/AudioStreamPlayer" to="UI/Start/Quit" method="_on_audio_stream_player_finished"]

@@ -30,6 +30,7 @@ var dropTimer = randf_range(0.5, 1.25)
 @onready var dropSFX = $DropSFX
 @onready var vesselsSFX = $VesselsSFX
 @onready var bloodSFX = $BloodSFX
+@onready var svAnim = get_parent().get_parent().get_parent().get_parent().get_node("AnimationPlayer")
 
 func _ready() -> void:
 	sprite.material = sprite.material.duplicate()
@@ -49,6 +50,7 @@ func take_damage(damage):
 
 func _physics_process(delta: float) -> void:
 	if health <= 0:
+		svAnim.play("visible")
 		queue_free()
 		isDead = true
 	
